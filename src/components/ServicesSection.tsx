@@ -61,7 +61,7 @@ const ServicesSection = ({ content }: Props) => {
   useEffect(() => {
     if (!isTursoConfigured()) return;
     turso
-      .execute("SELECT name, description, category, image_url FROM services WHERE active = 1 ORDER BY category, name LIMIT 4")
+        .execute("SELECT name, description, category, image_url FROM services WHERE active = 1 ORDER BY category, name LIMIT 3")
       .then((result) => {
         const rows = result.rows as any[];
         const mapped: DisplayService[] = rows.map((r, i) => ({
@@ -95,7 +95,7 @@ const ServicesSection = ({ content }: Props) => {
         </motion.div>
 
         {dbServices.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {dbServices.map((service, i) => (
               <ServiceCard key={service.number} service={service} index={i} />
             ))}
