@@ -6,7 +6,7 @@ import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import WellnessBenefitsSection from "@/components/WellnessBenefitsSection";
 import PremiumFeaturesSection from "@/components/PremiumFeaturesSection";
 import VideoSection from "@/components/VideoSection";
-import PricingSection from "@/components/PricingSection";
+import SpaPacksSection from "@/components/SpaPacksSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -26,7 +26,7 @@ const Index = () => {
       <WellnessBenefitsSection content={content.wellness} />
       <PremiumFeaturesSection content={content.premiumFeatures} />
       <VideoSection content={content.video} />
-      <PricingSection content={content.pricing} />
+      <SpaPacksSection />
       <ContactSection content={content.contact} />
       <Footer content={content.footer} />
     </div>
