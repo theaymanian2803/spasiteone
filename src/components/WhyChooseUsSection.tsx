@@ -20,9 +20,9 @@ const WhyChooseUsSection = ({ content }: Props) => {
             transition={{ duration: 0.8 }}
           >
             <img
-              src={content.image_url}
-              alt="Spa relaxation"
-              className="w-full aspect-[4/5] object-cover rounded-2xl"
+              src="/spologo.png"
+              alt="PAUSE DETENTE SPA Logo"
+              className="w-full aspect-[4/5] object-contain bg-secondary/30 rounded-2xl p-8"
             />
             <div className="absolute top-8 left-8 bg-primary text-white rounded-2xl p-4 shadow-xl">
               <p className="font-body text-xs uppercase tracking-wider opacity-80">Proudly Serving Since</p>
