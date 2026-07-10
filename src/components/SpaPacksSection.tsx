@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -103,6 +104,16 @@ const spaMenuData: SpaCategory[] = [
 ];
 
 const SpaPacksSection = () => {
+  const [showAll, setShowAll] = useState(false);
+
+  // Pick one from each category
+  const featured = spaMenuData.map((cat) => ({
+    ...cat,
+    items: [cat.items[0]],
+  }));
+
+  const displayData = showAll ? spaMenuData : featured;
+
   return (
     <section className="section-padding bg-secondary/30">
       <div className="max-w-6xl mx-auto">
@@ -122,8 +133,8 @@ const SpaPacksSection = () => {
           </p>
         </motion.div>
 
-        {spaMenuData.map((category, catIdx) => (
-          <div key={category.id} className={catIdx < spaMenuData.length - 1 ? "mb-16" : ""}>
+        {displayData.map((category, catIdx) => (
+          <div key={category.id} className={catIdx < displayData.length - 1 ? "mb-16" : ""}>
             <motion.h3
               className="font-display text-2xl text-foreground mb-6 flex items-center gap-3"
               initial={{ opacity: 0, x: -20 }}
@@ -135,7 +146,7 @@ const SpaPacksSection = () => {
               {category.name}
             </motion.h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {category.items.map((item, i) => (
                 <motion.div
                   key={item.id}
@@ -149,7 +160,6 @@ const SpaPacksSection = () => {
                   {item.description && (
                     <p className="font-body text-sm text-muted-foreground mb-4 leading-relaxed">{item.description}</p>
                   )}
-                  {!item.description && <div className="mb-4" />}
 
                   <div className="space-y-2 mb-6">
                     {item.pricing.map((option, j) => (
@@ -171,6 +181,25 @@ const SpaPacksSection = () => {
             </div>
           </div>
         ))}
+
+        {!showAll && (
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setShowAll(true)}
+              className="px-8"
+            >
+              See More
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
