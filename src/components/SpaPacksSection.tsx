@@ -2,103 +2,57 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Check } from "lucide-react";
+import { Check, Crown, Gem, Star } from "lucide-react";
 
 type PricingOption = {
   duration: string;
   price: number;
 };
 
-type SpaMenuItem = {
+type PackItem = {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   pricing: PricingOption[];
+  icon: React.ReactNode;
+  features: string[];
 };
 
-type SpaCategory = {
-  id: string;
-  name: string;
-  items: SpaMenuItem[];
-};
-
-const spaMenuData: SpaCategory[] = [
+const packsData: PackItem[] = [
   {
-    id: "massages",
-    name: "Massages",
-    items: [
-      {
-        id: "massage-relaxant",
-        name: "Massage Relaxant",
-        pricing: [
-          { duration: "1h", price: 400 },
-          { duration: "30min", price: 300 },
-        ],
-      },
-      {
-        id: "massage-tonique",
-        name: "Massage Tonique",
-        pricing: [
-          { duration: "1h", price: 500 },
-          { duration: "30min", price: 400 },
-        ],
-      },
-      {
-        id: "foot-massage",
-        name: "Foot Massage",
-        pricing: [
-          { duration: "1h", price: 500 },
-          { duration: "30min", price: 400 },
-        ],
-      },
+    id: "pack-prince",
+    name: "Prince",
+    description: "Perfect for those looking for a quick and refreshing spa experience.",
+    pricing: [{ duration: "45min", price: 500 }],
+    icon: <Star size={32} />,
+    features: [
+      "Hammam Traditionnel",
+      "Massage Relaxant",
+      "45 minutes of pure relaxation",
     ],
   },
   {
-    id: "hammams",
-    name: "Hammams",
-    items: [
-      {
-        id: "hammam-traditionnel",
-        name: "Hammam Traditionnel",
-        description: "Hammam Gommage Au Savon Noir + Savonage",
-        pricing: [
-          { duration: "1h", price: 400 },
-          { duration: "30min", price: 300 },
-        ],
-      },
-      {
-        id: "hammam-royal",
-        name: "Hammam Royal",
-        description: "Hammam Gommage Au Savon Noir + Savonage",
-        pricing: [
-          { duration: "1h", price: 500 },
-          { duration: "30min", price: 400 },
-        ],
-      },
+    id: "pack-royal",
+    name: "Royal",
+    description: "Perfect for those looking for a quick and refreshing spa experience.",
+    pricing: [{ duration: "45min", price: 600 }],
+    icon: <Crown size={32} />,
+    features: [
+      "Hammam Royal",
+      "Massage Relaxant",
+      "45 minutes of pure relaxation",
     ],
   },
   {
-    id: "packs",
-    name: "Packs",
-    items: [
-      {
-        id: "pack-prince",
-        name: "Prince",
-        description: "Hammam Traditionnel + Massage Relaxant",
-        pricing: [{ duration: "45min", price: 500 }],
-      },
-      {
-        id: "pack-royal",
-        name: "Royal",
-        description: "Hammam Royal + Massage Relaxant",
-        pricing: [{ duration: "45min", price: 600 }],
-      },
-      {
-        id: "pack-parfait",
-        name: "Parfait",
-        description: "Hammam Royal + Massage Tonique",
-        pricing: [{ duration: "60min", price: 700 }],
-      },
+    id: "pack-parfait",
+    name: "Parfait",
+    description: "Perfect for those looking for a quick and refreshing spa experience.",
+    pricing: [{ duration: "60min", price: 700 }],
+    icon: <Gem size={32} />,
+    features: [
+      "Hammam Royal",
+      "Massage Tonique",
+      "60 minutes of pure relaxation",
     ],
   },
 ];
@@ -106,16 +60,8 @@ const spaMenuData: SpaCategory[] = [
 const SpaPacksSection = () => {
   const [showAll, setShowAll] = useState(false);
 
-  // Pick one from each category
-  const featured = spaMenuData.map((cat) => ({
-    ...cat,
-    items: [cat.items[0]],
-  }));
-
-  const displayData = showAll ? spaMenuData : featured;
-
   return (
-    <section className="section-padding bg-secondary/30">
+    <section className="section-padding bg-background">
       <div className="max-w-6xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -124,63 +70,79 @@ const SpaPacksSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
         >
-          <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Our Services</p>
+          <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Our Packages</p>
           <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
             Spa Menu &<span className="italic"> Pricing</span>
           </h2>
           <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Discover our range of premium spa treatments and curated packages designed for your ultimate relaxation.
+            Discover our curated spa packages designed for your ultimate relaxation and rejuvenation.
           </p>
         </motion.div>
 
-        {displayData.map((category, catIdx) => (
-          <div key={category.id} className={catIdx < displayData.length - 1 ? "mb-16" : ""}>
-            <motion.h3
-              className="font-display text-2xl text-foreground mb-6 flex items-center gap-3"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {packsData.map((pack, i) => (
+            <motion.div
+              key={pack.id}
+              className={`relative bg-background rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border ${
+                i === 1 ? "border-primary ring-2 ring-primary/20" : "border-border"
+              }`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <span className="w-8 h-0.5 bg-primary" />
-              {category.name}
-            </motion.h3>
+              {i === 1 && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full font-body text-xs uppercase tracking-wider">
+                  Most Popular
+                </div>
+              )}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {category.items.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  className="bg-background rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-500"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <h4 className="font-display text-xl mb-2">{item.name}</h4>
-                  {item.description && (
-                    <p className="font-body text-sm text-muted-foreground mb-4 leading-relaxed">{item.description}</p>
-                  )}
+              <div className="mb-6">
+                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4 text-primary">
+                  {pack.icon}
+                </div>
+                <h3 className="font-display text-2xl mb-2">{pack.name} Package</h3>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                  {pack.description}
+                </p>
+              </div>
 
-                  <div className="space-y-2 mb-6">
-                    {item.pricing.map((option, j) => (
-                      <div key={j} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-                        <div className="flex items-center gap-2">
-                          <Check size={14} className="text-primary" />
-                          <span className="font-body text-sm text-muted-foreground">{option.duration}</span>
-                        </div>
-                        <span className="font-display text-lg text-primary font-semibold">{option.price} DH</span>
+              <div className="border-t border-border pt-6 mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-5xl text-primary font-bold">
+                    {pack.pricing[0].price} DH
+                  </span>
+                  <span className="font-body text-sm text-muted-foreground">
+                    /{pack.pricing[0].duration}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <h4 className="font-body text-sm font-medium mb-4">What's included:</h4>
+                <ul className="space-y-3">
+                  {pack.features.map((feature, j) => (
+                    <li key={j} className="flex items-center gap-3 font-body text-sm text-muted-foreground">
+                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <Check size={12} className="text-primary" />
                       </div>
-                    ))}
-                  </div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                  <Button variant="elegant" size="sm" className="w-full" asChild>
-                    <Link to="/book">Book Now</Link>
-                  </Button>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        ))}
+              <Button
+                variant={i === 1 ? "hero" : "elegant"}
+                size="lg"
+                className="w-full"
+                asChild
+              >
+                <Link to="/book">Get Started With Plan</Link>
+              </Button>
+            </motion.div>
+          ))}
+        </div>
 
         {!showAll && (
           <motion.div
@@ -196,8 +158,51 @@ const SpaPacksSection = () => {
               onClick={() => setShowAll(true)}
               className="px-8"
             >
-              See More
+              See More Services
             </Button>
+          </motion.div>
+        )}
+
+        {showAll && (
+          <motion.div
+            className="mt-16 pt-16 border-t border-border"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h3 className="font-display text-2xl text-foreground mb-8 text-center">
+              Additional Services
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { name: "Massage Relaxant", prices: [{ duration: "1h", price: 400 }, { duration: "30min", price: 300 }] },
+                { name: "Massage Tonique", prices: [{ duration: "1h", price: 500 }, { duration: "30min", price: 400 }] },
+                { name: "Foot Massage", prices: [{ duration: "1h", price: 500 }, { duration: "30min", price: 400 }] },
+                { name: "Hammam Traditionnel", desc: "Gommage Au Savon Noir + Savonage", prices: [{ duration: "1h", price: 400 }, { duration: "30min", price: 300 }] },
+                { name: "Hammam Royal", desc: "Gommage Au Savon Noir + Savonage", prices: [{ duration: "1h", price: 500 }, { duration: "30min", price: 400 }] },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-secondary/30 rounded-xl p-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                >
+                  <h4 className="font-display text-lg mb-2">{item.name}</h4>
+                  {"desc" in item && (
+                    <p className="font-body text-xs text-muted-foreground mb-3">{item.desc}</p>
+                  )}
+                  <div className="space-y-2">
+                    {item.prices.map((p, j) => (
+                      <div key={j} className="flex items-center justify-between text-sm">
+                        <span className="font-body text-muted-foreground">{p.duration}</span>
+                        <span className="font-display text-primary font-semibold">{p.price} DH</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )}
       </div>
