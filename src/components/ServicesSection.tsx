@@ -1,29 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Star, Sparkles, Scissors, Eye, Droplets, Heart, type LucideIcon } from "lucide-react";
+import { Star } from "lucide-react";
 import { ServicesContent } from "@/hooks/useSiteContent";
 import { turso, isTursoConfigured } from "@/lib/db";
-
-const categoryIconMap: Record<string, LucideIcon> = {
-  Hair: Scissors,
-  Nails: Sparkles,
-  Facials: Eye,
-  Makeup: Heart,
-  Spa: Droplets,
-  General: Sparkles,
-};
-
-const iconMap: Record<string, LucideIcon> = {
-  Stone: Droplets,
-  Face: Eye,
-  Hands: Heart,
-  Spa: Sparkles,
-  Scissors: Scissors,
-  Sparkles: Sparkles,
-  Eye: Eye,
-  Droplets: Droplets,
-  Heart: Heart,
-};
 
 interface Props {
   content: ServicesContent;
@@ -31,7 +10,6 @@ interface Props {
 
 interface DisplayService {
   number: string;
-  icon: string;
   title: string;
   description: string;
   image_url: string;
@@ -40,12 +18,9 @@ interface DisplayService {
 const ServiceCard = ({ service, index }: { service: DisplayService; index: number }) => {
   const [imgSrc, setImgSrc] = useState(service.image_url);
 
-  // Sync state when the prop changes (e.g. when DB data arrives)
   useEffect(() => {
     setImgSrc(service.image_url);
   }, [service.image_url]);
-
-  const Icon = iconMap[service.icon] ?? categoryIconMap[service.title] ?? Sparkles;
 
   return (
     <motion.div
@@ -65,7 +40,7 @@ const ServiceCard = ({ service, index }: { service: DisplayService; index: numbe
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-            <Icon size={48} className="text-primary/40" />
+            <span className="text-primary/40 text-sm font-body">No image</span>
           </div>
         )}
         <div className="absolute top-4 left-4 w-10 h-10 bg-primary/90 rounded-full flex items-center justify-center shadow-lg">
@@ -73,9 +48,6 @@ const ServiceCard = ({ service, index }: { service: DisplayService; index: numbe
         </div>
       </div>
       <div className="p-6">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-          <Icon size={20} className="text-primary" />
-        </div>
         <h3 className="font-display text-xl mb-2 text-foreground">{service.title}</h3>
         <p className="font-body text-sm text-muted-foreground leading-relaxed">{service.description}</p>
       </div>
@@ -94,7 +66,6 @@ const ServicesSection = ({ content }: Props) => {
         const rows = result.rows as any[];
         const mapped: DisplayService[] = rows.map((r, i) => ({
           number: String(i + 1).padStart(2, "0"),
-          icon: r.category || "Sparkles",
           title: r.name,
           description: r.description || "",
           image_url: r.image_url || "",
@@ -103,14 +74,6 @@ const ServicesSection = ({ content }: Props) => {
       })
       .catch(() => {});
   }, []);
-
-  const items = dbServices.length > 0 ? dbServices : content.items.slice(0, 4).map((s) => ({
-    number: s.number,
-    icon: s.icon,
-    title: s.title,
-    description: s.description,
-    image_url: s.image_url,
-  }));
 
   return (
     <section id="services" className="section-padding bg-secondary/50">
@@ -131,11 +94,19 @@ const ServicesSection = ({ content }: Props) => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {items.map((service, i) => (
-            <ServiceCard key={i} service={service} index={i} />
-          ))}
-        </div>
+        {dbServices.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {dbServices.map((service, i) => (
+              <ServiceCard key={service.number} service={service} index={i} />
+            ))}
+          </div>
+        )}
+
+        {dbServices.length === 0 && (
+          <div className="text-center py-12">
+            <p className="font-body text-muted-foreground">Services will appear here once added from the admin panel.</p>
+          </div>
+        )}
 
         <motion.div
           className="text-center"
