@@ -1,0 +1,171 @@
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Star, Sparkles, Scissors, Eye, Droplets, Heart, type LucideIcon } from "lucide-react";
+import { ServicesContent } from "@/hooks/useSiteContent";
+import { turso, isTursoConfigured } from "@/lib/db";
+
+const categoryIconMap: Record<string, LucideIcon> = {
+  Hair: Scissors,
+  Nails: Sparkles,
+  Facials: Eye,
+  Makeup: Heart,
+  Spa: Droplets,
+  General: Sparkles,
+};
+
+const iconMap: Record<string, LucideIcon> = {
+  Stone: Droplets,
+  Face: Eye,
+  Hands: Heart,
+  Spa: Sparkles,
+  Scissors: Scissors,
+  Sparkles: Sparkles,
+  Eye: Eye,
+  Droplets: Droplets,
+  Heart: Heart,
+};
+
+interface Props {
+  content: ServicesContent;
+}
+
+interface DisplayService {
+  number: string;
+  icon: string;
+  title: string;
+  description: string;
+  image_url: string;
+}
+
+const ServiceCard = ({ service, index }: { service: DisplayService; index: number }) => {
+  const [imgSrc, setImgSrc] = useState(service.image_url);
+
+  // Sync state when the prop changes (e.g. when DB data arrives)
+  useEffect(() => {
+    setImgSrc(service.image_url);
+  }, [service.image_url]);
+
+  const Icon = iconMap[service.icon] ?? categoryIconMap[service.title] ?? Sparkles;
+
+  return (
+    <motion.div
+      className="group bg-background rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+    >
+      <div className="relative h-48 overflow-hidden bg-secondary/30">
+        {imgSrc ? (
+          <img
+            src={imgSrc}
+            alt={service.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            onError={() => setImgSrc("")}
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+            <Icon size={48} className="text-primary/40" />
+          </div>
+        )}
+        <div className="absolute top-4 left-4 w-10 h-10 bg-primary/90 rounded-full flex items-center justify-center shadow-lg">
+          <span className="font-body text-sm font-bold text-white">{service.number}</span>
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <Icon size={20} className="text-primary" />
+        </div>
+        <h3 className="font-display text-xl mb-2 text-foreground">{service.title}</h3>
+        <p className="font-body text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+      </div>
+    </motion.div>
+  );
+};
+
+const ServicesSection = ({ content }: Props) => {
+  const [dbServices, setDbServices] = useState<DisplayService[]>([]);
+
+  useEffect(() => {
+    if (!isTursoConfigured()) return;
+    turso
+      .execute("SELECT name, description, category, image_url FROM services WHERE active = 1 ORDER BY category, name LIMIT 4")
+      .then((result) => {
+        const rows = result.rows as any[];
+        const mapped: DisplayService[] = rows.map((r, i) => ({
+          number: String(i + 1).padStart(2, "0"),
+          icon: r.category || "Sparkles",
+          title: r.name,
+          description: r.description || "",
+          image_url: r.image_url || "",
+        }));
+        setDbServices(mapped);
+      })
+      .catch(() => {});
+  }, []);
+
+  const items = dbServices.length > 0 ? dbServices : content.items.slice(0, 4).map((s) => ({
+    number: s.number,
+    icon: s.icon,
+    title: s.title,
+    description: s.description,
+    image_url: s.image_url,
+  }));
+
+  return (
+    <section id="services" className="section-padding bg-secondary/50">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">{content.subtitle}</p>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
+            {content.title}<span className="italic">{content.title_italic}</span>
+          </h2>
+          <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            {content.description}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {items.map((service, i) => (
+            <ServiceCard key={i} service={service} index={i} />
+          ))}
+        </div>
+
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-4 bg-background rounded-full px-6 py-3 shadow-sm">
+            <div className="flex -space-x-2">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-8 h-8 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center">
+                  <span className="text-xs">😊</span>
+                </div>
+              ))}
+            </div>
+            <div className="text-left">
+              <p className="font-body text-sm font-medium text-foreground">Trusted by {content.users} Users</p>
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />
+                ))}
+                <span className="font-body text-xs text-muted-foreground ml-1">{content.rating}</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default ServicesSection;
