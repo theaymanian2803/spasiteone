@@ -15,6 +15,7 @@ import AdminOverview from './pages/admin/AdminOverview'
 import AdminAppointments from './pages/admin/AdminAppointments'
 import AdminClients from './pages/admin/AdminClients'
 import AdminServices from './pages/admin/AdminServices'
+import AdminCategories from './pages/admin/AdminCategories'
 import AdminSettings from './pages/admin/AdminSettings'
 import AdminContent from './pages/admin/AdminContent'
 import NotFound from './pages/NotFound'
@@ -49,6 +50,7 @@ const App = () => {
                 <Route path="appointments" element={<AdminAppointments />} />
                 <Route path="clients" element={<AdminClients />} />
                 <Route path="services" element={<AdminServices />} />
+                <Route path="categories" element={<AdminCategories />} />
                 <Route path="content" element={<AdminContent />} />
                 <Route path="settings" element={<AdminSettings />} />
               </Route>

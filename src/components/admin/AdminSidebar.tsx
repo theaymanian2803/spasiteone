@@ -1,4 +1,4 @@
-import { LayoutDashboard, CalendarDays, Users, Scissors, Settings, LogOut, ExternalLink, FileText } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, Scissors, Settings, LogOut, ExternalLink, FileText, FolderTree } from "lucide-react";
 import { Link } from "react-router-dom";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -20,6 +20,7 @@ const items = [
   { title: "Overview", url: "/admin", icon: LayoutDashboard },
   { title: "Appointments", url: "/admin/appointments", icon: CalendarDays },
   { title: "Clients", url: "/admin/clients", icon: Users },
+  { title: "Categories", url: "/admin/categories", icon: FolderTree },
   { title: "Services", url: "/admin/services", icon: Scissors },
   { title: "Content", url: "/admin/content", icon: FileText },
   { title: "Settings", url: "/admin/settings", icon: Settings },

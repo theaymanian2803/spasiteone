@@ -9,10 +9,11 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog";
 
-const emptyService = { name: "", description: "", duration_minutes: 60, price: 0, category: "Hair", active: true, image_url: "" };
+const emptyService = { name: "", description: "", duration_minutes: 60, price: 0, category: "", active: true, image_url: "" };
 
 const AdminServices = () => {
   const [services, setServices] = useState<Service[]>([]);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Service | null>(null);
@@ -28,10 +29,16 @@ const AdminServices = () => {
   const fetchServices = async () => {
     const result = await turso.execute("SELECT * FROM services ORDER BY category, name");
     setServices(result.rows as unknown as Service[]);
-    setLoading(false);
   };
 
-  useEffect(() => { fetchServices(); }, []);
+  const fetchCategories = async () => {
+    const result = await turso.execute("SELECT id, name FROM categories WHERE active = 1 ORDER BY display_order, name");
+    setCategories(result.rows as { id: string; name: string }[]);
+  };
+
+  useEffect(() => {
+    Promise.all([fetchServices(), fetchCategories()]).then(() => setLoading(false));
+  }, []);
 
   const allCategories = useMemo(() => [...new Set(services.map((s) => s.category))], [services]);
 
@@ -211,7 +218,8 @@ const AdminServices = () => {
               <div>
                 <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Category</label>
                 <select className={inputClass} value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
-                  {["Hair", "Nails", "Facials", "Makeup"].map((c) => <option key={c} value={c}>{c}</option>)}
+                  <option value="">Select category</option>
+                  {categories.map((c) => <option key={c.id} value={c.name}>{c.name}</option>)}
                 </select>
               </div>
               <div>
