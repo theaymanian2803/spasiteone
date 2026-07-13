@@ -3,6 +3,7 @@ import { Menu, X, LogIn, LogOut, User, CalendarDays, ChevronDown, LayoutDashboar
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { motion, AnimatePresence } from "framer-motion";
 import ServicesMegaMenu from "./navbar/ServicesMegaMenu";
 
@@ -17,6 +18,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const { user, isAdmin, signOut } = useAuth();
+  const { content } = useSiteContent();
+  const showGallery = content.gallery.show_gallery;
   const megaRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -57,7 +60,10 @@ const Navbar = () => {
             Home
           </a>
           <ServicesMegaMenu />
-          {sectionLinks.slice(1).map((link) => (
+          {sectionLinks
+            .filter((link) => link.label !== "Galerie" || showGallery)
+            .slice(1)
+            .map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -162,7 +168,9 @@ const Navbar = () => {
             className="md:hidden bg-foreground border-b border-background/10 overflow-hidden"
           >
             <div className="px-4 sm:px-6 pb-6 pt-3">
-              {sectionLinks.map((link) => (
+              {sectionLinks
+                .filter((link) => link.label !== "Galerie" || showGallery)
+                .map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
