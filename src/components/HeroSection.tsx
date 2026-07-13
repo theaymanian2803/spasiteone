@@ -175,7 +175,7 @@ const HeroSection = ({ content }: Props) => {
             <Button
               variant="outline"
               size="lg"
-              className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 backdrop-blur-sm"
+              className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full px-8 backdrop-blur-sm"
               asChild
             >
               <Link to="/contact">
