@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
@@ -35,6 +35,8 @@ const BookingPage = () => {
   });
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const preselectServiceId = searchParams.get("service");
 
   const updateBooking = (data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -108,7 +110,7 @@ const BookingPage = () => {
 
   const renderStep = () => {
     switch (currentStep) {
-      case 0: return <StepService data={bookingData} update={updateBooking} onNext={next} />;
+      case 0: return <StepService data={bookingData} update={updateBooking} onNext={next} preselectServiceId={preselectServiceId} />;
       case 1: return <StepDateTime data={bookingData} update={updateBooking} onNext={next} onBack={prev} />;
       case 2: return <StepDetails data={bookingData} update={updateBooking} onNext={next} onBack={prev} />;
       case 3: return <StepReview data={bookingData} onBack={prev} onSubmit={handleSubmit} submitting={submitting} />;

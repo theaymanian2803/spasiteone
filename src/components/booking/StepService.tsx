@@ -10,11 +10,12 @@ interface Props {
   data: BookingData;
   update: (d: Partial<BookingData>) => void;
   onNext: () => void;
+  preselectServiceId?: string | null;
 }
 
 const fallbackCategories = ["Massages", "Hammams", "Packs"];
 
-const StepService = ({ data, update, onNext }: Props) => {
+const StepService = ({ data, update, onNext, preselectServiceId }: Props) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<string[]>(fallbackCategories);
@@ -31,6 +32,13 @@ const StepService = ({ data, update, onNext }: Props) => {
         if (cats.length > 0) {
           setCategories(cats);
           setActiveCategory(cats[0]);
+        }
+        if (preselectServiceId) {
+          const found = rows.find((s) => String(s.id) === String(preselectServiceId));
+          if (found) {
+            update({ service: found });
+            setActiveCategory(found.category);
+          }
         }
       }
       setLoading(false);

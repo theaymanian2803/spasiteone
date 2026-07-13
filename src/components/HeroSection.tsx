@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Search, Clock, MapPin, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, Search, Clock, MapPin, Phone, X, Loader2 } from "lucide-react";
 import { HeroContent } from "@/hooks/useSiteContent";
 import { turso, isTursoConfigured } from "@/lib/db";
 
@@ -14,32 +14,74 @@ const HeroSection = ({ content }: Props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const navigate = useNavigate();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
+  // Live search with debounce as you type
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      setShowResults(false);
+      return;
+    }
+
     setSearching(true);
-    try {
-      if (isTursoConfigured()) {
-        const result = await turso.execute(
-          "SELECT id, name, description, category, price FROM services WHERE active = 1 AND (name LIKE ? OR description LIKE ? OR category LIKE ?) LIMIT 5",
-          [`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`]
-        );
-        setSearchResults(result.rows as any[]);
-      } else {
+    debounceRef.current = setTimeout(async () => {
+      try {
+        if (isTursoConfigured()) {
+          const result = await turso.execute(
+            "SELECT id, name, description, category, price, duration_minutes FROM services WHERE active = 1 AND (name LIKE ? OR description LIKE ? OR category LIKE ?) LIMIT 6",
+            [`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`]
+          );
+          setSearchResults(result.rows as any[]);
+        } else {
+          setSearchResults([]);
+        }
+      } catch {
         setSearchResults([]);
       }
-    } catch {
-      setSearchResults([]);
-    }
-    setSearching(false);
-  };
+      setSearching(false);
+      setShowResults(true);
+    }, 300);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [searchQuery]);
+
+  // Close results when clicking outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (resultsRef.current && !resultsRef.current.contains(e.target as Node)) {
+        setShowResults(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const goToService = (serviceId: string) => {
     setSearchQuery("");
     setSearchResults([]);
-    navigate("/book");
+    setShowResults(false);
+    navigate(`/book?service=${serviceId}`);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+    setShowResults(false);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchResults.length > 0) {
+      goToService(searchResults[0].id);
+    }
   };
 
   return (
@@ -111,16 +153,29 @@ const HeroSection = ({ content }: Props) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <form onSubmit={handleSearch} className="relative">
+            <form onSubmit={handleSubmit} className="relative" ref={resultsRef}>
               <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden focus-within:border-[#a8d5a2]/50 transition-colors">
                 <Search size={20} className="text-white/50 ml-5 shrink-0" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
                   placeholder="Rechercher des services... (ex: massage, soin, manucure)"
-                  className="flex-1 bg-transparent px-4 py-4 font-body text-white placeholder:text-white/40 text-base focus:outline-none"
+                  className="flex-1 bg-transparent px-4 py-4 font-body text-white placeholder:text-white/40 text-base focus:outline-none min-w-0"
                 />
+                {searching && (
+                  <Loader2 size={18} className="text-white/40 animate-spin mr-3 shrink-0" />
+                )}
+                {!searching && searchQuery && (
+                  <button
+                    type="button"
+                    onClick={clearSearch}
+                    className="text-white/40 hover:text-white/70 transition-colors mr-3 shrink-0"
+                  >
+                    <X size={18} />
+                  </button>
+                )}
                 <button
                   type="submit"
                   disabled={searching}
@@ -132,26 +187,47 @@ const HeroSection = ({ content }: Props) => {
               </div>
 
               {/* Search Results Dropdown */}
-              {searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-50">
-                  {searchResults.map((service: any) => (
-                    <button
-                      key={service.id}
-                      onClick={() => goToService(service.id)}
-                      className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#4a6741]/10 transition-colors text-left border-b border-gray-100 last:border-0"
-                    >
-                      <div>
-                        <p className="font-display text-base text-[#1a1a1a]">{service.name}</p>
-                        <p className="font-body text-xs text-gray-500 mt-0.5">{service.category} · {service.description?.slice(0, 60)}...</p>
+              <AnimatePresence>
+                {showResults && searchQuery.trim() && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-50"
+                  >
+                    {searchResults.length > 0 ? (
+                      <>
+                        {searchResults.map((service: any) => (
+                          <button
+                            key={service.id}
+                            onClick={() => goToService(service.id)}
+                            className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#4a6741]/10 transition-colors text-left border-b border-gray-100 last:border-0"
+                          >
+                            <div className="min-w-0">
+                              <p className="font-display text-base text-[#1a1a1a] truncate">{service.name}</p>
+                              <p className="font-body text-xs text-gray-500 mt-0.5 truncate">
+                                {service.category}
+                                {service.duration_minutes ? ` · ${service.duration_minutes} min` : ""}
+                              </p>
+                            </div>
+                            <div className="text-right shrink-0 ml-4">
+                              <p className="font-display text-lg text-[#4a6741] font-bold">{service.price} DH</p>
+                              <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">Réserver</p>
+                            </div>
+                          </button>
+                        ))}
+                      </>
+                    ) : (
+                      <div className="px-5 py-8 text-center">
+                        <p className="font-body text-sm text-gray-500">
+                          Aucun service trouvé pour "{searchQuery}"
+                        </p>
                       </div>
-                      <div className="text-right shrink-0 ml-4">
-                        <p className="font-display text-lg text-[#4a6741] font-bold">{service.price} DH</p>
-                        <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">Réserver</p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
           </motion.div>
 
