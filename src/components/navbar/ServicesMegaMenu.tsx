@@ -55,7 +55,7 @@ const ServicesMegaMenu = () => {
         ref={triggerRef}
         onMouseEnter={() => setOpen(true)}
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-3 py-2 font-body text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors rounded-sm"
+        className="flex items-center gap-1 px-3 py-2 font-body text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-colors rounded-sm"
       >
         Services
         <ChevronDown

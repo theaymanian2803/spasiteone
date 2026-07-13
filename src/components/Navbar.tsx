@@ -37,7 +37,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/40">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground text-background border-b border-background/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 flex items-center justify-between h-16 sm:h-20">
         {/* Brand */}
         <Link to="/" className="flex items-center group">
@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-2">
           <a
             href="/"
-            className="px-4 py-2.5 font-body text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-all duration-300 rounded-md hover:bg-muted/30"
+            className="px-4 py-2.5 font-body text-[11px] uppercase tracking-[0.25em] text-white/60 hover:text-white transition-all duration-300 rounded-md hover:bg-white/10"
           >
             Home
           </a>
@@ -61,7 +61,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
-              className="px-4 py-2.5 font-body text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-all duration-300 rounded-md hover:bg-muted/30"
+              className="px-4 py-2.5 font-body text-[11px] uppercase tracking-[0.25em] text-white/60 hover:text-white transition-all duration-300 rounded-md hover:bg-white/10"
             >
               {link.label}
             </a>
@@ -79,7 +79,7 @@ const Navbar = () => {
               <button
                 ref={triggerRef}
                 onClick={() => setMegaOpen(!megaOpen)}
-                className="flex items-center gap-2 px-3.5 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-all duration-300 rounded-md border border-border/40 hover:border-border/70 hover:bg-muted/20"
+                className="flex items-center gap-2 px-3.5 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-white/60 hover:text-white transition-all duration-300 rounded-md border border-white/20 hover:border-white/40 hover:bg-white/10"
               >
                 <User size={14} strokeWidth={1.5} />
                 <span className="max-w-[100px] truncate">{user.email?.split("@")[0]}</span>
@@ -94,17 +94,17 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.96 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute right-0 top-full mt-3 w-64 bg-background border border-border/60 rounded-lg shadow-2xl overflow-hidden"
+                    className="absolute right-0 top-full mt-3 w-64 bg-foreground border border-background/20 rounded-lg shadow-2xl overflow-hidden"
                   >
-                    <div className="px-4 py-3 border-b border-border/40 bg-muted/20">
-                      <p className="font-body text-xs text-muted-foreground truncate">{user.email}</p>
+                    <div className="px-4 py-3 border-b border-background/10 bg-white/5">
+                      <p className="font-body text-xs text-white/50 truncate">{user.email}</p>
                     </div>
 
                     <div className="py-1.5">
                       <Link
                         to="/my-appointments"
                         onClick={() => setMegaOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 font-body text-sm text-foreground hover:bg-muted/40 transition-colors duration-200"
+                        className="flex items-center gap-3 px-4 py-3 font-body text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200"
                       >
                         <CalendarDays size={16} strokeWidth={1.5} className="text-primary" />
                         Mes Réservations
@@ -114,7 +114,7 @@ const Navbar = () => {
                         <Link
                           to="/admin"
                           onClick={() => setMegaOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 font-body text-sm text-foreground hover:bg-muted/40 transition-colors duration-200"
+                          className="flex items-center gap-3 px-4 py-3 font-body text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200"
                         >
                           <LayoutDashboard size={16} strokeWidth={1.5} className="text-primary" />
                           Tableau de Bord
@@ -122,10 +122,10 @@ const Navbar = () => {
                       )}
                     </div>
 
-                    <div className="border-t border-border/40 py-1.5">
+                    <div className="border-t border-background/10 py-1.5">
                       <button
                         onClick={() => { signOut(); setMegaOpen(false); }}
-                        className="flex items-center gap-3 px-4 py-3 w-full text-left font-body text-sm text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors duration-200"
+                        className="flex items-center gap-3 px-4 py-3 w-full text-left font-body text-sm text-white/50 hover:text-white hover:bg-white/10 transition-colors duration-200"
                       >
                         <LogOut size={16} strokeWidth={1.5} />
                         Déconnexion
@@ -136,7 +136,7 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
           ) : (
-            <Button variant="elegant" size="sm" asChild className="shadow-[0_2px_8px_rgba(212,175,55,0.3)] hover:shadow-[0_4px_12px_rgba(212,175,55,0.4)]">
+            <Button variant="elegant" size="sm" asChild className="border-white/30 text-white hover:bg-white hover:text-foreground shadow-[0_2px_8px_rgba(212,175,55,0.3)] hover:shadow-[0_4px_12px_rgba(212,175,55,0.4)]">
               <Link to="/login"><LogIn size={14} strokeWidth={1.5} className="mr-1.5" /> Connexion</Link>
             </Button>
           )}
@@ -145,7 +145,7 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-foreground p-2 rounded-md hover:bg-muted/30 transition-colors duration-200"
+          className="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-colors duration-200"
         >
           {mobileOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
@@ -159,7 +159,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-background border-b border-border/40 overflow-hidden"
+            className="md:hidden bg-foreground border-b border-background/10 overflow-hidden"
           >
             <div className="px-4 sm:px-6 pb-6 pt-3">
               {sectionLinks.map((link) => (
@@ -167,7 +167,7 @@ const Navbar = () => {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-colors duration-200"
+                  className="block py-3.5 font-body text-[11px] uppercase tracking-[0.25em] text-white/60 hover:text-white transition-colors duration-200"
                 >
                   {link.label}
                 </a>
@@ -178,15 +178,15 @@ const Navbar = () => {
               </Button>
 
               {user ? (
-                <div className="mt-5 pt-5 border-t border-border/40 space-y-1">
-                  <div className="flex items-center gap-2 py-2.5 font-body text-xs text-muted-foreground">
+                <div className="mt-5 pt-5 border-t border-background/10 space-y-1">
+                  <div className="flex items-center gap-2 py-2.5 font-body text-xs text-white/50">
                     <User size={14} strokeWidth={1.5} />
                     {user.email}
                   </div>
                   <Link
                     to="/my-appointments"
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-2.5 py-3 font-body text-sm text-foreground hover:text-primary transition-colors duration-200"
+                    className="flex items-center gap-2.5 py-3 font-body text-sm text-white/80 hover:text-white transition-colors duration-200"
                   >
                     <CalendarDays size={14} strokeWidth={1.5} /> Mes Réservations
                   </Link>
@@ -194,21 +194,21 @@ const Navbar = () => {
                     <Link
                       to="/admin"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2.5 py-3 font-body text-sm text-foreground hover:text-primary transition-colors duration-200"
+                      className="flex items-center gap-2.5 py-3 font-body text-sm text-white/80 hover:text-white transition-colors duration-200"
                     >
                       <LayoutDashboard size={14} strokeWidth={1.5} /> Tableau de Bord
                     </Link>
                   )}
                   <button
                     onClick={() => { signOut(); setMobileOpen(false); }}
-                    className="flex items-center gap-2.5 py-3 w-full text-left font-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+                    className="flex items-center gap-2.5 py-3 w-full text-left font-body text-sm text-white/50 hover:text-white transition-colors duration-200"
                   >
                     <LogOut size={14} strokeWidth={1.5} /> Déconnexion
                   </button>
                 </div>
               ) : (
                 <div className="mt-4">
-                  <Button variant="elegant" size="sm" className="w-full" asChild>
+                  <Button variant="elegant" size="sm" className="w-full border-white/30 text-white hover:bg-white hover:text-foreground" asChild>
                     <Link to="/login" onClick={() => setMobileOpen(false)}>Connexion / Inscription</Link>
                   </Button>
                 </div>
