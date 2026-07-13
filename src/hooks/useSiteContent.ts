@@ -342,9 +342,9 @@ export const defaultSiteContent: SiteContent = {
   },
   footer: {
     brand_description: "Là où l'élégance rencontre l'expertise. Un sanctuaire de beauté créé pour la femme moderne.",
-    hours: ["Lun – Ven : 9h00 – 20h00", "Samedi : 10h00 – 18h00", "Dimanche : Fermé"],
+    hours: ["Tous les jours : 11h00 – 23h00"],
     address: "Maroc",
-    phone: "+33 1 23 45 67 89",
+    phone: "0728729792",
     email: "bonjour@lumiere-salon.com",
     instagram: "#",
     facebook: "#",

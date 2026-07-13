@@ -29,7 +29,7 @@ export interface Appointment {
 }
 
 export interface BookingData {
-  service: Service | null;
+  services: Service[];
   date: Date | null;
   time: string | null;
   clientFirstName: string;
@@ -40,7 +40,7 @@ export interface BookingData {
 }
 
 export const initialBookingData: BookingData = {
-  service: null,
+  services: [],
   date: null,
   time: null,
   clientFirstName: "",
@@ -49,3 +49,9 @@ export const initialBookingData: BookingData = {
   clientPhone: "",
   specialRequests: "",
 };
+
+export const totalDuration = (services: Service[]): number =>
+  services.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
+
+export const totalPrice = (services: Service[]): number =>
+  services.reduce((sum, s) => sum + (s.price || 0), 0);

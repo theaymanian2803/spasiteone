@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { BookingData } from "@/types/booking";
+import { BookingData, totalDuration } from "@/types/booking";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
@@ -73,7 +73,7 @@ const StepDateTime = ({ data, update, onNext, onBack }: Props) => {
   const [existingAppts, setExistingAppts] = useState<ExistingAppointment[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
-  const durationMin = data.service?.duration_minutes ?? 60;
+  const durationMin = totalDuration(data.services) || 60;
 
   const fetchAppointmentsForDate = useCallback(async (date: Date) => {
     setLoadingSlots(true);
