@@ -40,7 +40,7 @@ const ServiceCard = ({ service, index }: { service: DisplayService; index: numbe
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-            <span className="text-primary/40 text-sm font-body">No image</span>
+            <span className="text-primary/40 text-sm font-body">Pas d'image</span>
           </div>
         )}
         <div className="absolute top-4 left-4 w-10 h-10 bg-primary/90 rounded-full flex items-center justify-center shadow-lg">
@@ -104,7 +104,7 @@ const ServicesSection = ({ content }: Props) => {
 
         {dbServices.length === 0 && (
           <div className="text-center py-12">
-            <p className="font-body text-muted-foreground">Services will appear here once added from the admin panel.</p>
+            <p className="font-body text-muted-foreground">Les services apparaîtront ici une fois ajoutés depuis le panneau d'administration.</p>
           </div>
         )}
 
@@ -124,7 +124,7 @@ const ServicesSection = ({ content }: Props) => {
               ))}
             </div>
             <div className="text-left">
-              <p className="font-body text-sm font-medium text-foreground">Trusted by {content.users} Users</p>
+              <p className="font-body text-sm font-medium text-foreground">La confiance de {content.users} Utilisateurs</p>
               <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />

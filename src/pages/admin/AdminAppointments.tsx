@@ -106,7 +106,7 @@ const AdminAppointments = () => {
   const updateStatus = async (id: string, status: string) => {
     await turso.execute("UPDATE appointments SET status = ? WHERE id = ?", [status, id])
     setAppointments((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)))
-    toast.success('Status updated')
+    toast.success('Statut mis à jour')
   }
 
   const openEdit = (apt: AppointmentRow) => {
@@ -124,7 +124,7 @@ const AdminAppointments = () => {
       "UPDATE appointments SET status = ?, special_requests = ? WHERE id = ?",
       [editForm.status, editForm.special_requests, editApt.id]
     )
-    toast.success('Appointment updated')
+    toast.success('Rendez-vous mis à jour')
     setSaving(false)
     setEditApt(null)
     fetchAppointments()
@@ -133,7 +133,7 @@ const AdminAppointments = () => {
   const handleDelete = async () => {
     if (!deleteId) return
     await turso.execute("DELETE FROM appointments WHERE id = ?", [deleteId])
-    toast.success('Appointment deleted')
+    toast.success('Rendez-vous supprimé')
     setDeleteId(null)
     fetchAppointments()
   }
@@ -153,7 +153,7 @@ const AdminAppointments = () => {
   return (
     <div>
       <h1 className="font-display text-2xl mb-6">
-        All <span className="italic">Appointments</span>
+        Tous les <span className="italic">Rendez-vous</span>
       </h1>
 
       {/* Filters */}
@@ -165,7 +165,7 @@ const AdminAppointments = () => {
           />
           <input
             className={`${inputClass} pl-9`}
-            placeholder="Search client, service..."
+            placeholder="Rechercher client, service..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -174,7 +174,7 @@ const AdminAppointments = () => {
           className={`${inputClass} w-auto min-w-[140px]`}
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}>
-          <option value="all">All Statuses</option>
+          <option value="all">Tous les Statuts</option>
           {statusOptions.map((s) => (
             <option key={s} value={s}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -189,7 +189,7 @@ const AdminAppointments = () => {
                 'w-auto min-w-[130px] text-left',
                 !dateFrom && 'text-muted-foreground'
               )}>
-              {dateFrom ? format(dateFrom, 'MMM d, yyyy') : 'From date'}
+              {dateFrom ? format(dateFrom, 'MMM d, yyyy') : 'Date de début'}
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -209,7 +209,7 @@ const AdminAppointments = () => {
                 'w-auto min-w-[130px] text-left',
                 !dateTo && 'text-muted-foreground'
               )}>
-              {dateTo ? format(dateTo, 'MMM d, yyyy') : 'To date'}
+              {dateTo ? format(dateTo, 'MMM d, yyyy') : 'Date de fin'}
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -225,7 +225,7 @@ const AdminAppointments = () => {
           <button
             onClick={clearFilters}
             className="flex items-center gap-1 text-xs font-body text-muted-foreground hover:text-foreground transition-colors px-2 py-2">
-            <X size={14} /> Clear
+            <X size={14} /> Effacer
           </button>
         )}
       </div>
@@ -234,7 +234,7 @@ const AdminAppointments = () => {
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-muted/30">
-              {['Date', 'Time', 'Client', 'Service', 'Price', 'Status', 'Actions'].map(
+              {['Date', 'Heure', 'Client', 'Service', 'Prix', 'Statut', 'Actions'].map(
                 (h) => (
                   <th
                     key={h}
@@ -259,7 +259,7 @@ const AdminAppointments = () => {
                   )}
                 </td>
                 <td className="py-3 px-3 font-body text-sm">{apt.services?.name}</td>
-                <td className="py-3 px-3 font-body text-sm">€{apt.total_price}</td>
+                <td className="py-3 px-3 font-body text-sm">{apt.total_price} DH</td>
                 <td className="py-3 px-3">
                   <select
                     value={apt.status}
@@ -294,7 +294,7 @@ const AdminAppointments = () => {
                 <td
                   colSpan={7}
                   className="py-8 text-center font-body text-sm text-muted-foreground italic">
-                  {hasFilters ? 'No appointments match your filters.' : 'No appointments yet.'}
+                  {hasFilters ? 'Aucun rendez-vous ne correspond à vos filtres.' : 'Aucun rendez-vous pour le moment.'}
                 </td>
               </tr>
             )}
@@ -306,39 +306,39 @@ const AdminAppointments = () => {
       <Dialog open={!!editApt} onOpenChange={() => setEditApt(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-display">Edit Appointment</DialogTitle>
+            <DialogTitle className="font-display">Modifier le Rendez-vous</DialogTitle>
             <DialogDescription className="font-body text-sm text-muted-foreground">
-              Update appointment details for {editApt?.client_name}.
+              Mettez à jour les détails du rendez-vous pour {editApt?.client_name}.
             </DialogDescription>
           </DialogHeader>
           {editApt && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3 text-sm font-body bg-muted/20 p-3 rounded-md">
                 <div>
-                  <span className="text-muted-foreground">Date:</span> {editApt.appointment_date}
+                  <span className="text-muted-foreground">Date :</span> {editApt.appointment_date}
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Time:</span>{' '}
+                  <span className="text-muted-foreground">Heure :</span>{' '}
                   {editApt.start_time?.slice(0, 5)}
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Service:</span> {editApt.services?.name}
+                  <span className="text-muted-foreground">Service :</span> {editApt.services?.name}
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Price:</span> €{editApt.total_price}
+                  <span className="text-muted-foreground">Prix :</span> {editApt.total_price} DH
                 </div>
                 {/* Added Email and Phone to the edit dialog for quick reference */}
                 <div>
-                  <span className="text-muted-foreground">Email:</span> {editApt.client_email}
+                  <span className="text-muted-foreground">Email :</span> {editApt.client_email}
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Phone:</span>{' '}
+                  <span className="text-muted-foreground">Téléphone :</span>{' '}
                   {editApt.client_phone || 'N/A'}
                 </div>
               </div>
               <div>
                 <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">
-                  Status
+                  Statut
                 </label>
                 <select
                   className={inputClass}
@@ -365,10 +365,10 @@ const AdminAppointments = () => {
           )}
           <DialogFooter>
             <Button variant="elegant" onClick={() => setEditApt(null)}>
-              Cancel
+              Annuler
             </Button>
             <Button variant="hero" onClick={handleSave} disabled={saving}>
-              {saving ? 'Saving...' : 'Save'}
+              {saving ? 'Enregistrement...' : 'Enregistrer'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -378,17 +378,17 @@ const AdminAppointments = () => {
       <Dialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-display">Delete Appointment</DialogTitle>
+            <DialogTitle className="font-display">Supprimer le Rendez-vous</DialogTitle>
             <DialogDescription className="font-body text-sm text-muted-foreground">
-              Are you sure you want to permanently delete this appointment?
+              Êtes-vous sûr de vouloir supprimer définitivement ce rendez-vous ?
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="elegant" onClick={() => setDeleteId(null)}>
-              Cancel
+              Annuler
             </Button>
             <Button variant="destructive" onClick={handleDelete}>
-              Delete
+              Supprimer
             </Button>
           </DialogFooter>
         </DialogContent>

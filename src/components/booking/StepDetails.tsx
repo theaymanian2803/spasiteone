@@ -11,10 +11,10 @@ interface Props {
 }
 
 const schema = z.object({
-  clientFirstName: z.string().trim().min(1, "First name is required").max(50),
-  clientLastName: z.string().trim().min(1, "Last name is required").max(50),
-  clientEmail: z.string().trim().email("Invalid email address").max(255),
-  clientPhone: z.string().trim().min(1, "Phone number is required").max(20),
+  clientFirstName: z.string().trim().min(1, "Le prénom est requis").max(50),
+  clientLastName: z.string().trim().min(1, "Le nom de famille est requis").max(50),
+  clientEmail: z.string().trim().email("Adresse email invalide").max(255),
+  clientPhone: z.string().trim().min(1, "Le numéro de téléphone est requis").max(20),
 });
 
 const StepDetails = ({ data, update, onNext, onBack }: Props) => {
@@ -46,12 +46,12 @@ const StepDetails = ({ data, update, onNext, onBack }: Props) => {
 
   return (
     <div>
-      <h2 className="font-display text-2xl mb-2">Your Details</h2>
-      <p className="font-body text-sm text-muted-foreground mb-6">Please provide your contact information.</p>
+      <h2 className="font-display text-2xl mb-2">Vos Coordonnées</h2>
+      <p className="font-body text-sm text-muted-foreground mb-6">Veuillez fournir vos informations de contact.</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
         <div>
-          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">First Name *</label>
+          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Prénom *</label>
           <input
             className={inputClass("clientFirstName")}
             placeholder="Jane"
@@ -61,7 +61,7 @@ const StepDetails = ({ data, update, onNext, onBack }: Props) => {
           {errors.clientFirstName && <p className="text-xs text-destructive mt-1 font-body">{errors.clientFirstName}</p>}
         </div>
         <div>
-          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Last Name *</label>
+          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Nom *</label>
           <input
             className={inputClass("clientLastName")}
             placeholder="Doe"
@@ -82,7 +82,7 @@ const StepDetails = ({ data, update, onNext, onBack }: Props) => {
           {errors.clientEmail && <p className="text-xs text-destructive mt-1 font-body">{errors.clientEmail}</p>}
         </div>
         <div>
-          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Phone *</label>
+          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Téléphone *</label>
           <input
             type="tel"
             className={inputClass("clientPhone")}
@@ -93,10 +93,10 @@ const StepDetails = ({ data, update, onNext, onBack }: Props) => {
           {errors.clientPhone && <p className="text-xs text-destructive mt-1 font-body">{errors.clientPhone}</p>}
         </div>
         <div className="sm:col-span-2">
-          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Special Requests</label>
+          <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1.5 block">Demandes Spéciales</label>
           <textarea
             className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors min-h-[100px] resize-none"
-            placeholder="Any allergies, preferences, or special requests..."
+            placeholder="Allergies, préférences ou demandes spéciales..."
             value={data.specialRequests}
             onChange={(e) => update({ specialRequests: e.target.value })}
           />
@@ -104,8 +104,8 @@ const StepDetails = ({ data, update, onNext, onBack }: Props) => {
       </div>
 
       <div className="mt-8 flex justify-between">
-        <Button variant="elegant" size="lg" onClick={onBack}>Back</Button>
-        <Button variant="hero" size="lg" onClick={handleNext}>Continue</Button>
+        <Button variant="elegant" size="lg" onClick={onBack}>Retour</Button>
+        <Button variant="hero" size="lg" onClick={handleNext}>Continuer</Button>
       </div>
     </div>
   );

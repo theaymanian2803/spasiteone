@@ -45,9 +45,9 @@ const AdminContent = () => {
     const { error } = await saveSectionContent(key, draft[key]);
     setSaving(null);
     if (error) {
-      toast({ title: "Error saving", description: error.message, variant: "destructive" });
+      toast({ title: "Erreur lors de l'enregistrement", description: error.message, variant: "destructive" });
     } else {
-      toast({ title: "Saved", description: `${key} section updated successfully.` });
+      toast({ title: "Enregistré", description: `La section ${key} a été mise à jour avec succès.` });
     }
   };
 
@@ -62,7 +62,7 @@ const AdminContent = () => {
     const path = `${pathPrefix}/${Date.now()}-${file.name}`;
     const { url, error } = await uploadSiteImage(file, path);
     if (error || !url) {
-      toast({ title: "Upload failed", description: error?.message, variant: "destructive" });
+      toast({ title: "Échec de l'upload", description: error?.message, variant: "destructive" });
       return;
     }
     onUrl(url);
@@ -96,7 +96,7 @@ const AdminContent = () => {
         ...d,
         services: {
           ...d.services,
-          items: [...d.services.items, { icon: "Scissors", title: "", description: "", price_range: "" }],
+          items: [...d.services.items, { number: String(d.services.items.length + 1).padStart(2, "0"), icon: "Scissors", title: "", description: "", image_url: "" }],
         },
       };
     });
@@ -138,52 +138,52 @@ const AdminContent = () => {
   const SaveButton = ({ section }: { section: keyof SiteContent }) => (
     <Button onClick={() => save(section)} disabled={saving === section} className="gap-2">
       {saving === section ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-      Save {section}
+      Enregistrer
     </Button>
   );
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-display">Site Content</h1>
+        <h1 className="text-2xl font-display">Contenu du Site</h1>
         <p className="text-muted-foreground font-body text-sm mt-1">
-          Edit all homepage sections. Changes are saved per section.
+          Modifiez toutes les sections de la page d'accueil. Les modifications sont enregistrées par section.
         </p>
       </div>
 
       <Tabs defaultValue="hero" className="w-full">
         <TabsList className="flex flex-wrap h-auto gap-1">
-          <TabsTrigger value="hero">Hero</TabsTrigger>
+          <TabsTrigger value="hero">Bannière</TabsTrigger>
           <TabsTrigger value="services">Services</TabsTrigger>
-          <TabsTrigger value="about">About</TabsTrigger>
-          <TabsTrigger value="gallery">Gallery</TabsTrigger>
+          <TabsTrigger value="about">À Propos</TabsTrigger>
+          <TabsTrigger value="gallery">Galerie</TabsTrigger>
           <TabsTrigger value="contact">Contact</TabsTrigger>
-          <TabsTrigger value="footer">Footer</TabsTrigger>
+          <TabsTrigger value="footer">Pied de Page</TabsTrigger>
         </TabsList>
 
         {/* HERO */}
         <TabsContent value="hero">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">Hero Section</CardTitle>
-              <CardDescription>Main banner with headline and CTA</CardDescription>
+              <CardTitle className="font-display">Section Bannière</CardTitle>
+              <CardDescription>Bannière principale avec titre et bouton d'action</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Subtitle</Label>
+                  <Label>Sous-titre</Label>
                   <Input value={draft.hero.subtitle} onChange={(e) => updateHero("subtitle", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>CTA Text</Label>
+                  <Label>Texte du Bouton CTA</Label>
                   <Input value={draft.hero.cta_text} onChange={(e) => updateHero("cta_text", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title Line 1</Label>
+                  <Label>Ligne de Titre 1</Label>
                   <Input value={draft.hero.title_line1} onChange={(e) => updateHero("title_line1", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title Line 2 (italic)</Label>
+                  <Label>Ligne de Titre 2 (italique)</Label>
                   <Input value={draft.hero.title_line2} onChange={(e) => updateHero("title_line2", e.target.value)} />
                 </div>
               </div>
@@ -192,13 +192,13 @@ const AdminContent = () => {
                 <Textarea value={draft.hero.description} onChange={(e) => updateHero("description", e.target.value)} rows={3} />
               </div>
               <div className="space-y-2">
-                <Label>Background Image</Label>
+                <Label>Image de Fond</Label>
                 <div className="flex items-center gap-4">
                   {draft.hero.image_url && (
-                    <img src={draft.hero.image_url} alt="Hero preview" className="h-20 w-32 object-cover rounded-sm border" />
+                    <img src={draft.hero.image_url} alt="Aperçu de la bannière" className="h-20 w-32 object-cover rounded-sm border" />
                   )}
                   <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 border rounded-sm text-sm hover:bg-muted transition-colors">
-                    <ImageIcon className="h-4 w-4" /> Upload
+                    <ImageIcon className="h-4 w-4" /> Télécharger
                     <input
                       type="file"
                       accept="image/*"
@@ -219,63 +219,83 @@ const AdminContent = () => {
         <TabsContent value="services">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">Services Section</CardTitle>
-              <CardDescription>Featured service cards on the homepage</CardDescription>
+              <CardTitle className="font-display">Section Services</CardTitle>
+              <CardDescription>Cartes de services en vedette sur la page d'accueil</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label>Subtitle</Label>
+                  <Label>Sous-titre</Label>
                   <Input
                     value={draft.services.subtitle}
                     onChange={(e) => setDraft((d) => d && { ...d, services: { ...d.services, subtitle: e.target.value } })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title</Label>
+                  <Label>Titre</Label>
                   <Input
                     value={draft.services.title}
                     onChange={(e) => setDraft((d) => d && { ...d, services: { ...d.services, title: e.target.value } })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title Italic</Label>
+                  <Label>Titre Itallique</Label>
                   <Input
                     value={draft.services.title_italic}
                     onChange={(e) => setDraft((d) => d && { ...d, services: { ...d.services, title_italic: e.target.value } })}
                   />
                 </div>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Note</Label>
+                  <Input
+                    value={draft.services.rating}
+                    onChange={(e) => setDraft((d) => d && { ...d, services: { ...d.services, rating: e.target.value } })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Nombre d'Utilisateurs</Label>
+                  <Input
+                    value={draft.services.users}
+                    onChange={(e) => setDraft((d) => d && { ...d, services: { ...d.services, users: e.target.value } })}
+                  />
+                </div>
+              </div>
 
               <div className="space-y-3">
-                <Label>Service Cards</Label>
+                <Label>Cartes de Services</Label>
                 {draft.services.items.map((item, i) => (
-                  <div key={i} className="grid grid-cols-1 md:grid-cols-5 gap-3 p-4 border rounded-sm bg-muted/30">
+                  <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-3 p-4 border rounded-sm bg-muted/30">
                     <div className="space-y-1">
-                      <Label className="text-xs">Icon</Label>
+                      <Label className="text-xs">Numéro</Label>
+                      <Input value={item.number} onChange={(e) => updateServiceItem(i, "number", e.target.value)} placeholder="01" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Icône</Label>
                       <Input value={item.icon} onChange={(e) => updateServiceItem(i, "icon", e.target.value)} placeholder="Scissors" />
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-xs">Title</Label>
+                      <Label className="text-xs">Titre</Label>
                       <Input value={item.title} onChange={(e) => updateServiceItem(i, "title", e.target.value)} />
                     </div>
-                    <div className="space-y-1 md:col-span-2">
-                      <Label className="text-xs">Description</Label>
-                      <Input value={item.description} onChange={(e) => updateServiceItem(i, "description", e.target.value)} />
-                    </div>
                     <div className="flex items-end gap-2">
-                      <div className="space-y-1 flex-1">
-                        <Label className="text-xs">Price Range</Label>
-                        <Input value={item.price_range} onChange={(e) => updateServiceItem(i, "price_range", e.target.value)} />
-                      </div>
                       <Button variant="ghost" size="icon" className="text-destructive shrink-0" onClick={() => removeServiceItem(i)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
+                    <div className="md:col-span-3 space-y-1">
+                      <Label className="text-xs">Description</Label>
+                      <Input value={item.description} onChange={(e) => updateServiceItem(i, "description", e.target.value)} />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Image URL</Label>
+                      <Input value={item.image_url} onChange={(e) => updateServiceItem(i, "image_url", e.target.value)} placeholder="https://..." />
+                    </div>
                   </div>
                 ))}
                 <Button variant="outline" size="sm" onClick={addServiceItem} className="gap-2">
-                  <Plus className="h-4 w-4" /> Add Service Card
+                  <Plus className="h-4 w-4" /> Ajouter une Carte de Service
                 </Button>
               </div>
               <SaveButton section="services" />
@@ -287,107 +307,103 @@ const AdminContent = () => {
         <TabsContent value="about">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">About Section</CardTitle>
-              <CardDescription>Story, stats, and image</CardDescription>
+              <CardTitle className="font-display">Section À Propos</CardTitle>
+              <CardDescription>Titre, description, caractéristiques et statistiques</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label>Subtitle</Label>
+                  <Label>Sous-titre</Label>
                   <Input value={draft.about.subtitle} onChange={(e) => updateAbout("subtitle", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title</Label>
+                  <Label>Titre</Label>
                   <Input value={draft.about.title} onChange={(e) => updateAbout("title", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title Italic</Label>
+                  <Label>Titre Itallique</Label>
                   <Input value={draft.about.title_italic} onChange={(e) => updateAbout("title_italic", e.target.value)} />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label>Paragraphs</Label>
-                {draft.about.paragraphs.map((p, i) => (
-                  <div key={i} className="flex gap-2">
-                    <Textarea
-                      value={p}
-                      rows={2}
-                      onChange={(e) => {
-                        const paragraphs = [...draft.about.paragraphs];
-                        paragraphs[i] = e.target.value;
-                        updateAbout("paragraphs", paragraphs);
-                      }}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-destructive shrink-0 mt-1"
-                      onClick={() => updateAbout("paragraphs", draft.about.paragraphs.filter((_, idx) => idx !== i))}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2"
-                  onClick={() => updateAbout("paragraphs", [...draft.about.paragraphs, ""])}
-                >
-                  <Plus className="h-4 w-4" /> Add Paragraph
-                </Button>
+                <Label>Description</Label>
+                <Textarea value={draft.about.description} onChange={(e) => updateAbout("description", e.target.value)} rows={3} />
               </div>
 
-              <div className="space-y-2">
-                <Label>Stats</Label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {draft.about.stats.map((stat, i) => (
-                    <div key={i} className="flex gap-2 p-3 border rounded-sm bg-muted/30">
-                      <div className="space-y-1 flex-1">
-                        <Label className="text-xs">Number</Label>
-                        <Input
-                          value={stat.number}
-                          onChange={(e) => {
-                            const stats = [...draft.about.stats];
-                            stats[i] = { ...stats[i], number: e.target.value };
-                            updateAbout("stats", stats);
-                          }}
-                        />
-                      </div>
-                      <div className="space-y-1 flex-1">
-                        <Label className="text-xs">Label</Label>
-                        <Input
-                          value={stat.label}
-                          onChange={(e) => {
-                            const stats = [...draft.about.stats];
-                            stats[i] = { ...stats[i], label: e.target.value };
-                            updateAbout("stats", stats);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Caractéristique 1</Label>
+                  <Input value={draft.about.feature1} onChange={(e) => updateAbout("feature1", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Caractéristique 2</Label>
+                  <Input value={draft.about.feature2} onChange={(e) => updateAbout("feature2", e.target.value)} />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label>Image</Label>
-                <div className="flex items-center gap-4">
-                  {draft.about.image_url && (
-                    <img src={draft.about.image_url} alt="About preview" className="h-20 w-20 object-cover rounded-sm border" />
-                  )}
-                  <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 border rounded-sm text-sm hover:bg-muted transition-colors">
-                    <ImageIcon className="h-4 w-4" /> Upload
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) =>
-                        handleImageUpload(e, "about", "about", (url) => updateAbout("image_url", url))
-                      }
-                    />
-                  </label>
+                <Label>Statistiques</Label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex gap-2 p-3 border rounded-sm bg-muted/30">
+                    <div className="space-y-1 flex-1">
+                      <Label className="text-xs">Nombre 1</Label>
+                      <Input
+                        value={draft.about.stat1_number}
+                        onChange={(e) => updateAbout("stat1_number", e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-1 flex-1">
+                      <Label className="text-xs">Libellé 1</Label>
+                      <Input
+                        value={draft.about.stat1_label}
+                        onChange={(e) => updateAbout("stat1_label", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 p-3 border rounded-sm bg-muted/30">
+                    <div className="space-y-1 flex-1">
+                      <Label className="text-xs">Nombre 2</Label>
+                      <Input
+                        value={draft.about.stat2_number}
+                        onChange={(e) => updateAbout("stat2_number", e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-1 flex-1">
+                      <Label className="text-xs">Libellé 2</Label>
+                      <Input
+                        value={draft.about.stat2_label}
+                        onChange={(e) => updateAbout("stat2_label", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Images</Label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {(["image_url", "image2_url", "image3_url"] as const).map((field) => (
+                    <div key={field} className="space-y-2">
+                      <Label className="text-xs">{field === "image_url" ? "Image Principale" : field === "image2_url" ? "Image Secondaire" : "Image Tertiaire"}</Label>
+                      <div className="flex items-center gap-3">
+                        {draft.about[field] && (
+                          <img src={draft.about[field]} alt="Aperçu" className="h-16 w-20 object-cover rounded-sm border" />
+                        )}
+                        <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 border rounded-sm text-xs hover:bg-muted transition-colors">
+                          <ImageIcon className="h-3 w-3" /> Télécharger
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) =>
+                              handleImageUpload(e, "about", "about", (url) => updateAbout(field, url))
+                            }
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
               <SaveButton section="about" />
@@ -399,22 +415,34 @@ const AdminContent = () => {
         <TabsContent value="gallery">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">Gallery Section</CardTitle>
-              <CardDescription>Portfolio images with labels</CardDescription>
+              <CardTitle className="font-display">Section Galerie</CardTitle>
+              <CardDescription>Images du portfolio avec libellés</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="flex items-center gap-3 p-3 border rounded-sm bg-muted/30">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={draft.gallery.show_gallery}
+                    onChange={(e) => setDraft((d) => d && { ...d, gallery: { ...d.gallery, show_gallery: e.target.checked } })}
+                  />
+                  <div className="w-11 h-6 bg-muted border border-border rounded-full peer peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary/20 transition-colors after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border after:border-gray-200 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full" />
+                </label>
+                <Label className="cursor-pointer">Afficher la galerie sur la page d'accueil</Label>
+              </div>
               {draft.gallery.items.map((item, i) => (
-                <div key={i} className="flex items-start gap-4 p-4 border rounded-sm bg-muted/30">
+                <div key={i} className="flex items-center gap-4 p-4 border rounded-sm bg-muted/30">
                   <div className="shrink-0">
                     {item.image_url ? (
-                      <img src={item.image_url} alt={item.alt} className="h-16 w-24 object-cover rounded-sm border" />
+                      <img src={item.image_url} alt="" className="h-20 w-28 object-cover rounded-sm border" />
                     ) : (
-                      <div className="h-16 w-24 bg-muted rounded-sm flex items-center justify-center border">
+                      <div className="h-20 w-28 bg-muted rounded-sm flex items-center justify-center border">
                         <ImageIcon className="h-5 w-5 text-muted-foreground" />
                       </div>
                     )}
                     <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-1 border rounded-sm text-xs mt-2 hover:bg-muted transition-colors">
-                      <ImageIcon className="h-3 w-3" /> Upload
+                      <ImageIcon className="h-3 w-3" /> Télécharger
                       <input
                         type="file"
                         accept="image/*"
@@ -425,23 +453,14 @@ const AdminContent = () => {
                       />
                     </label>
                   </div>
-                  <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <Label className="text-xs">Label</Label>
-                      <Input value={item.label} onChange={(e) => updateGalleryItem(i, "label", e.target.value)} />
-                    </div>
-                    <div className="space-y-1">
-                      <Label className="text-xs">Alt Text</Label>
-                      <Input value={item.alt} onChange={(e) => updateGalleryItem(i, "alt", e.target.value)} />
-                    </div>
-                  </div>
+                  <div className="flex-1" />
                   <Button variant="ghost" size="icon" className="text-destructive shrink-0" onClick={() => removeGalleryItem(i)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               ))}
               <Button variant="outline" size="sm" onClick={addGalleryItem} className="gap-2">
-                <Plus className="h-4 w-4" /> Add Gallery Item
+                <Plus className="h-4 w-4" /> Ajouter un Élément de Galerie
               </Button>
               <div className="pt-2">
                 <SaveButton section="gallery" />
@@ -454,35 +473,60 @@ const AdminContent = () => {
         <TabsContent value="contact">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">Contact Section</CardTitle>
-              <CardDescription>CTA section near the bottom of the page</CardDescription>
+              <CardTitle className="font-display">Section Contact</CardTitle>
+              <CardDescription>Section CTA près du bas de la page</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Subtitle</Label>
+                  <Label>Sous-titre</Label>
                   <Input value={draft.contact.subtitle} onChange={(e) => updateContact("subtitle", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title</Label>
+                  <Label>Titre</Label>
                   <Input value={draft.contact.title} onChange={(e) => updateContact("title", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Title Italic</Label>
+                  <Label>Titre Itallique</Label>
                   <Input value={draft.contact.title_italic} onChange={(e) => updateContact("title_italic", e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                  <Label>CTA Primary</Label>
-                  <Input value={draft.contact.cta_primary} onChange={(e) => updateContact("cta_primary", e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                  <Label>CTA Secondary</Label>
-                  <Input value={draft.contact.cta_secondary} onChange={(e) => updateContact("cta_secondary", e.target.value)} />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label>Description</Label>
                 <Textarea value={draft.contact.description} onChange={(e) => updateContact("description", e.target.value)} rows={3} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Téléphone</Label>
+                  <Input value={draft.contact.phone} onChange={(e) => updateContact("phone", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Téléphone 2</Label>
+                  <Input value={draft.contact.phone2} onChange={(e) => updateContact("phone2", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Email</Label>
+                  <Input value={draft.contact.email} onChange={(e) => updateContact("email", e.target.value)} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Image</Label>
+                <div className="flex items-center gap-4">
+                  {draft.contact.image_url && (
+                    <img src={draft.contact.image_url} alt="Aperçu contact" className="h-20 w-32 object-cover rounded-sm border" />
+                  )}
+                  <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 border rounded-sm text-sm hover:bg-muted transition-colors">
+                    <ImageIcon className="h-4 w-4" /> Télécharger
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleImageUpload(e, "contact", "contact", (url) => updateContact("image_url", url))
+                      }
+                    />
+                  </label>
+                </div>
               </div>
               <SaveButton section="contact" />
             </CardContent>
@@ -493,21 +537,21 @@ const AdminContent = () => {
         <TabsContent value="footer">
           <Card>
             <CardHeader>
-              <CardTitle className="font-display">Footer</CardTitle>
-              <CardDescription>Brand info, hours, contact details, socials</CardDescription>
+              <CardTitle className="font-display">Pied de Page</CardTitle>
+              <CardDescription>Informations de marque, horaires, coordonnées, réseaux sociaux</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>Brand Description</Label>
+                <Label>Description de la Marque</Label>
                 <Textarea value={draft.footer.brand_description} onChange={(e) => updateFooter("brand_description", e.target.value)} rows={2} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Address</Label>
+                  <Label>Adresse</Label>
                   <Input value={draft.footer.address} onChange={(e) => updateFooter("address", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Phone</Label>
+                  <Label>Téléphone</Label>
                   <Input value={draft.footer.phone} onChange={(e) => updateFooter("phone", e.target.value)} />
                 </div>
                 <div className="space-y-2">
@@ -517,7 +561,7 @@ const AdminContent = () => {
               </div>
 
               <div className="space-y-2">
-                <Label>Hours</Label>
+                <Label>Horaires</Label>
                 {draft.footer.hours.map((h, i) => (
                   <div key={i} className="flex gap-2">
                     <Input
@@ -539,21 +583,21 @@ const AdminContent = () => {
                   </div>
                 ))}
                 <Button variant="outline" size="sm" className="gap-2" onClick={() => updateFooter("hours", [...draft.footer.hours, ""])}>
-                  <Plus className="h-4 w-4" /> Add Hours Row
+                  <Plus className="h-4 w-4" /> Ajouter une Ligne d'Horaire
                 </Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label>Instagram URL</Label>
+                  <Label>URL Instagram</Label>
                   <Input value={draft.footer.instagram} onChange={(e) => updateFooter("instagram", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Facebook URL</Label>
+                  <Label>URL Facebook</Label>
                   <Input value={draft.footer.facebook} onChange={(e) => updateFooter("facebook", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Twitter URL</Label>
+                  <Label>URL Twitter</Label>
                   <Input value={draft.footer.twitter} onChange={(e) => updateFooter("twitter", e.target.value)} />
                 </div>
               </div>

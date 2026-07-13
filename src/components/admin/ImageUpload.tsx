@@ -17,16 +17,16 @@ const ImageUpload = ({ value, onChange, label, folder }: ImageUploadProps) => {
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!file.type.startsWith("image/")) { toast.error("Please select an image file"); return; }
-    if (file.size > 5 * 1024 * 1024) { toast.error("Max file size is 5MB"); return; }
+    if (!file.type.startsWith("image/")) { toast.error("Veuillez sélectionner un fichier image"); return; }
+    if (file.size > 5 * 1024 * 1024) { toast.error("La taille maximale est de 5 Mo"); return; }
 
     setUploading(true);
     const path = `${folder}/${Date.now()}-${file.name}`;
     const { url, error } = await uploadSiteImage(file, path);
     setUploading(false);
 
-    if (error) { toast.error("Upload failed: " + error.message); return; }
-    if (url) { onChange(url); toast.success("Image uploaded"); }
+    if (error) { toast.error("Échec de l'upload : " + error.message); return; }
+    if (url) { onChange(url); toast.success("Image téléchargée"); }
   };
 
   return (
@@ -41,7 +41,7 @@ const ImageUpload = ({ value, onChange, label, folder }: ImageUploadProps) => {
                 onClick={() => inputRef.current?.click()}
                 className="bg-background/90 text-foreground px-4 py-2 rounded-sm font-body text-sm flex items-center gap-2"
               >
-                <Upload size={14} /> Replace
+                <Upload size={14} /> Remplacer
               </button>
             </div>
           </div>
@@ -53,7 +53,7 @@ const ImageUpload = ({ value, onChange, label, folder }: ImageUploadProps) => {
           >
             <ImageIcon size={24} className="text-muted-foreground" />
             <span className="font-body text-sm text-muted-foreground">
-              {uploading ? "Uploading..." : "Click to upload"}
+              {uploading ? "Téléchargement..." : "Cliquer pour télécharger"}
             </span>
           </button>
         )}

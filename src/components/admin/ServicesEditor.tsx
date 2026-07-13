@@ -33,7 +33,7 @@ const ServicesEditor = ({ content, onChange, onSave, saving }: ServicesEditorPro
     <div className="space-y-6">
       {/* Section heading fields */}
       <div>
-        <label className={labelClass}>Subtitle</label>
+        <label className={labelClass}>Sous-titre</label>
         <input className={inputClass} value={content.subtitle} onChange={(e) => onChange({ ...content, subtitle: e.target.value })} />
       </div>
       <div className="grid grid-cols-2 gap-3">
@@ -42,14 +42,14 @@ const ServicesEditor = ({ content, onChange, onSave, saving }: ServicesEditorPro
           <input className={inputClass} value={content.title} onChange={(e) => onChange({ ...content, title: e.target.value })} />
         </div>
         <div>
-          <label className={labelClass}>Title Italic Part</label>
+          <label className={labelClass}>Partie Italique du Titre</label>
           <input className={inputClass} value={content.title_italic} onChange={(e) => onChange({ ...content, title_italic: e.target.value })} />
         </div>
       </div>
 
       {/* Service cards */}
       <div>
-        <label className={labelClass}>Service Cards</label>
+        <label className={labelClass}>Cartes de Services</label>
         <div className="space-y-4">
           {content.items.map((item, i) => (
             <div key={i} className="border border-border rounded-sm p-4 bg-background">
@@ -57,14 +57,14 @@ const ServicesEditor = ({ content, onChange, onSave, saving }: ServicesEditorPro
                 <div className="flex-1 space-y-3">
                   <div className="grid grid-cols-[120px_1fr] gap-3">
                     <div>
-                      <label className={labelClass}>Icon</label>
+                      <label className={labelClass}>Icône</label>
                       <select className={inputClass} value={item.icon} onChange={(e) => updateItem(i, { icon: e.target.value })}>
                         {ICON_OPTIONS.map((ic) => <option key={ic} value={ic}>{ic}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className={labelClass}>Title</label>
-                      <input className={inputClass} value={item.title} onChange={(e) => updateItem(i, { title: e.target.value })} placeholder="e.g. Hair" />
+          <label className={labelClass}>Titre</label>
+                      <input className={inputClass} value={item.title} onChange={(e) => updateItem(i, { title: e.target.value })} placeholder="ex. Cheveux" />
                     </div>
                   </div>
                   <div>
@@ -72,8 +72,8 @@ const ServicesEditor = ({ content, onChange, onSave, saving }: ServicesEditorPro
                     <textarea className={`${inputClass} min-h-[60px] resize-none`} value={item.description} onChange={(e) => updateItem(i, { description: e.target.value })} />
                   </div>
                   <div>
-                    <label className={labelClass}>Price Range</label>
-                    <input className={inputClass} value={item.price_range} onChange={(e) => updateItem(i, { price_range: e.target.value })} placeholder="e.g. €65 – €250" />
+                    <label className={labelClass}>Fourchette de Prix</label>
+                    <input className={inputClass} value={item.price_range} onChange={(e) => updateItem(i, { price_range: e.target.value })} placeholder="ex. 65 – 250 DH" />
                   </div>
                 </div>
                 <button onClick={() => removeItem(i)} className="text-muted-foreground hover:text-destructive shrink-0 mt-2">
@@ -84,12 +84,12 @@ const ServicesEditor = ({ content, onChange, onSave, saving }: ServicesEditorPro
           ))}
         </div>
         <button onClick={addItem} className="flex items-center gap-2 text-sm font-body text-primary hover:text-foreground transition-colors mt-3">
-          <Plus size={14} /> Add service card
+          <Plus size={14} /> Ajouter une carte de service
         </button>
       </div>
 
       <Button variant="hero" onClick={onSave} disabled={saving}>
-        <Save size={14} className="mr-2" /> {saving ? "Saving..." : "Save Services"}
+        <Save size={14} className="mr-2" /> {saving ? "Enregistrement..." : "Enregistrer les Services"}
       </Button>
     </div>
   );

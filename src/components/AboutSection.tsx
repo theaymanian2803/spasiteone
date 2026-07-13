@@ -80,7 +80,7 @@ const AboutSection = ({ content }: Props) => {
               className="rounded-full px-8 bg-[#4a6741] hover:bg-[#3d5636]"
             >
               <ArrowUpRight size={18} className="mr-2" />
-              More About Us
+              En Savoir Plus
             </Button>
           </motion.div>
 
@@ -110,7 +110,7 @@ const AboutSection = ({ content }: Props) => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-[#4a6741] text-white text-center py-2 px-3">
-                <p className="font-body text-[11px] font-medium">Call At: +(123) 456-789</p>
+                <p className="font-body text-[11px] font-medium">Appelez-nous: +33 1 23 45 67 89</p>
               </div>
             </div>
 

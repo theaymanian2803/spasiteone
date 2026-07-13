@@ -17,13 +17,13 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
-  { title: "Overview", url: "/admin", icon: LayoutDashboard },
-  { title: "Appointments", url: "/admin/appointments", icon: CalendarDays },
+  { title: "Vue d'ensemble", url: "/admin", icon: LayoutDashboard },
+  { title: "Rendez-vous", url: "/admin/appointments", icon: CalendarDays },
   { title: "Clients", url: "/admin/clients", icon: Users },
-  { title: "Categories", url: "/admin/categories", icon: FolderTree },
+  { title: "Catégories", url: "/admin/categories", icon: FolderTree },
   { title: "Services", url: "/admin/services", icon: Scissors },
-  { title: "Content", url: "/admin/content", icon: FileText },
-  { title: "Settings", url: "/admin/settings", icon: Settings },
+  { title: "Contenu", url: "/admin/content", icon: FileText },
+  { title: "Paramètres", url: "/admin/settings", icon: Settings },
 ];
 
 const AdminSidebar = () => {
@@ -36,7 +36,7 @@ const AdminSidebar = () => {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="font-body text-xs uppercase tracking-[0.15em]">Management</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-body text-xs uppercase tracking-[0.15em]">Gestion</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -64,14 +64,14 @@ const AdminSidebar = () => {
             <SidebarMenuButton asChild className="hover:bg-primary/10 text-foreground">
               <Link to="/">
                 <ExternalLink className="mr-2 h-4 w-4" />
-                {!collapsed && <span className="font-body text-sm">Back to Shop</span>}
+                {!collapsed && <span className="font-body text-sm">Retour au Site</span>}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={signOut} className="hover:bg-destructive/10 text-destructive">
               <LogOut className="mr-2 h-4 w-4" />
-              {!collapsed && <span className="font-body text-sm">Sign Out</span>}
+              {!collapsed && <span className="font-body text-sm">Se Déconnecter</span>}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

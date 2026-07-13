@@ -83,18 +83,17 @@ const AdminOverview = () => {
   }));
 
   const serviceData = [
-    { name: "Hair", value: 42 },
-    { name: "Nails", value: 25 },
-    { name: "Facials", value: 20 },
-    { name: "Makeup", value: 13 },
+    { name: "Massages", value: 42 },
+    { name: "Hammams", value: 25 },
+    { name: "Packs", value: 20 },
   ];
 
   const kpiCards = kpis
     ? [
-        { label: "Today's Appointments", value: kpis.todayAppointments, icon: CalendarDays },
-        { label: "Revenue (Week)", value: `€${kpis.weekRevenue.toFixed(0)}`, icon: DollarSign },
-        { label: "New Clients", value: kpis.newClients, icon: Users },
-        { label: "Pending", value: kpis.pendingConfirmations, icon: Clock },
+        { label: "Rendez-vous Aujourd'hui", value: kpis.todayAppointments, icon: CalendarDays },
+        { label: "Revenus (Semaine)", value: `${kpis.weekRevenue.toFixed(0)} DH`, icon: DollarSign },
+        { label: "Nouveaux Clients", value: kpis.newClients, icon: Users },
+        { label: "En Attente", value: kpis.pendingConfirmations, icon: Clock },
       ]
     : [];
 
@@ -111,7 +110,7 @@ const AdminOverview = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-display text-2xl">Dashboard <span className="italic">Overview</span></h1>
+      <h1 className="font-display text-2xl">Vue d'Ensemble du <span className="italic">Tableau de Bord</span></h1>
 
       {/* KPI cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -129,7 +128,7 @@ const AdminOverview = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="border border-border rounded-sm p-5">
-          <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Revenue (Last 7 Days)</h3>
+          <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Revenus (7 Derniers Jours)</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={revenueData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(30, 15%, 88%)" />
@@ -142,7 +141,7 @@ const AdminOverview = () => {
         </div>
 
         <div className="border border-border rounded-sm p-5">
-          <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Most Popular Services</h3>
+          <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Services les Plus Populaires</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie data={serviceData} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
@@ -158,18 +157,18 @@ const AdminOverview = () => {
 
       {/* Today's Schedule */}
       <div className="border border-border rounded-sm p-5">
-        <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Today's Schedule</h3>
+        <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Planning d'Aujourd'hui</h3>
         {todaySchedule.length === 0 ? (
-          <p className="font-body text-sm text-muted-foreground italic">No appointments scheduled for today.</p>
+          <p className="font-body text-sm text-muted-foreground italic">Aucun rendez-vous prévu pour aujourd'hui.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Time</th>
+                  <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Heure</th>
                   <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Client</th>
                   <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Service</th>
-                  <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Status</th>
+                  <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Statut</th>
                   <th className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-2">Actions</th>
                 </tr>
               </thead>
@@ -192,12 +191,12 @@ const AdminOverview = () => {
                     <td className="py-3 px-2">
                       <div className="flex gap-1">
                         {apt.status === "pending" && (
-                          <button onClick={() => updateStatus(apt.id, "confirmed")} className="text-xs font-body text-primary hover:underline">Confirm</button>
+                          <button onClick={() => updateStatus(apt.id, "confirmed")} className="text-xs font-body text-primary hover:underline">Confirmer</button>
                         )}
                         {(apt.status === "pending" || apt.status === "confirmed") && (
                           <>
-                            <button onClick={() => updateStatus(apt.id, "completed")} className="text-xs font-body text-green-600 hover:underline ml-2">Complete</button>
-                            <button onClick={() => updateStatus(apt.id, "no-show")} className="text-xs font-body text-destructive hover:underline ml-2">No-Show</button>
+                            <button onClick={() => updateStatus(apt.id, "completed")} className="text-xs font-body text-green-600 hover:underline ml-2">Terminer</button>
+                            <button onClick={() => updateStatus(apt.id, "no-show")} className="text-xs font-body text-destructive hover:underline ml-2">Absent</button>
                           </>
                         )}
                       </div>

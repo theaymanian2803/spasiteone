@@ -45,7 +45,7 @@ const Footer = ({ content }: Props) => {
 
           {/* Hours */}
           <div>
-            <h4 className="font-body uppercase tracking-[0.2em] text-sm mb-6">Hours</h4>
+            <h4 className="font-body uppercase tracking-[0.2em] text-sm mb-6">Horaires</h4>
             <div className="space-y-3 text-sm opacity-70">
               {c.hours.map((h, i) => (
                 <div key={i} className="flex items-center gap-3">
@@ -58,7 +58,7 @@ const Footer = ({ content }: Props) => {
 
           {/* Location */}
           <div>
-            <h4 className="font-body uppercase tracking-[0.2em] text-sm mb-6">Location</h4>
+            <h4 className="font-body uppercase tracking-[0.2em] text-sm mb-6">Adresse</h4>
             <div className="space-y-3 text-sm opacity-70">
               <div className="flex items-center gap-3">
                 <MapPin size={16} className="shrink-0" />
@@ -79,14 +79,14 @@ const Footer = ({ content }: Props) => {
           <div>
             <h4 className="font-body uppercase tracking-[0.2em] text-sm mb-6">Newsletter</h4>
             <p className="font-body text-sm opacity-70 leading-relaxed mb-4">
-              Subscribe for exclusive offers, beauty tips, and event invitations.
+              Inscrivez-vous pour des offres exclusives, des conseils beauté et des invitations à des événements.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
+                placeholder="Votre email"
                 required
                 className="flex-1 bg-background/10 border border-background/20 rounded-sm px-3 py-2 text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors font-body"
               />
@@ -98,10 +98,10 @@ const Footer = ({ content }: Props) => {
         </div>
 
         <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs opacity-50 font-body">© 2026 Lumière Beauty Salon. All rights reserved.</p>
+          <p className="text-xs opacity-50 font-body">© 2026 Lumière Salon de Beauté. Tous droits réservés.</p>
           <div className="flex gap-6 text-xs opacity-50 font-body">
-            <a href="#" className="hover:opacity-100 transition-opacity">Privacy Policy</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Terms of Service</a>
+            <a href="#" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
+            <a href="#" className="hover:opacity-100 transition-opacity">Conditions d'Utilisation</a>
           </div>
         </div>
       </div>

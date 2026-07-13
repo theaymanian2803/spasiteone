@@ -24,7 +24,7 @@ const ContactSection = ({ content }: Props) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you soon.");
+    toast.success("Message envoyé ! Nous vous répondrons bientôt.");
     setFormData({ fullName: "", phone: "", email: "", date: "", message: "" });
   };
 
@@ -62,8 +62,8 @@ const ContactSection = ({ content }: Props) => {
                   <Phone size={20} className="text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-lg mb-1">Call Us</h4>
-                  <p className="font-body text-sm text-muted-foreground mb-1">Mon–Sat: 9:00 – 20:00</p>
+                  <h4 className="font-display text-lg mb-1">Appelez-nous</h4>
+                  <p className="font-body text-sm text-muted-foreground mb-1">Lun–Ven: 9h00 – 20h00</p>
                   <p className="font-body text-sm text-primary font-medium">{content.phone}</p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ const ContactSection = ({ content }: Props) => {
                   <Mail size={20} className="text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-lg mb-1">Email Us</h4>
-                  <p className="font-body text-sm text-muted-foreground mb-1">We'll respond within 24h</p>
+                  <h4 className="font-display text-lg mb-1">Envoyez-nous un Email</h4>
+                  <p className="font-body text-sm text-muted-foreground mb-1">Nous vous répondrons sous 24h</p>
                   <p className="font-body text-sm text-primary font-medium">{content.email}</p>
                 </div>
               </div>
@@ -88,9 +88,9 @@ const ContactSection = ({ content }: Props) => {
                   <MapPin size={20} className="text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-lg mb-1">Visit Us</h4>
-                  <p className="font-body text-sm text-muted-foreground mb-1">Come relax with us</p>
-                  <p className="font-body text-sm text-primary font-medium">123 Spa Street, Wellness City</p>
+                  <h4 className="font-display text-lg mb-1">Rendez-nous Visite</h4>
+                  <p className="font-body text-sm text-muted-foreground mb-1">Venez vous détendre avec nous</p>
+                  <p className="font-body text-sm text-primary font-medium">128 Rue de la Beauté, Paris</p>
                 </div>
               </div>
             </div>
@@ -101,9 +101,9 @@ const ContactSection = ({ content }: Props) => {
                   <Clock size={20} className="text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-lg mb-1">Working Hours</h4>
-                  <p className="font-body text-sm text-muted-foreground mb-1">Book your appointment</p>
-                  <p className="font-body text-sm text-primary font-medium">Mon–Sat: 9:00 – 20:00</p>
+                  <h4 className="font-display text-lg mb-1">Horaires</h4>
+                  <p className="font-body text-sm text-muted-foreground mb-1">Réservez votre rendez-vous</p>
+                  <p className="font-body text-sm text-primary font-medium">Lun–Ven: 9h00 – 20h00</p>
                 </div>
               </div>
             </div>
@@ -118,13 +118,13 @@ const ContactSection = ({ content }: Props) => {
             transition={{ duration: 0.8 }}
           >
             <div className="bg-secondary/30 rounded-3xl p-8 md:p-10">
-              <h3 className="font-display text-2xl mb-2">Send Us a Message</h3>
-              <p className="font-body text-sm text-muted-foreground mb-8">Fill out the form below and we'll get back to you shortly.</p>
+              <h3 className="font-display text-2xl mb-2">Envoyez-nous un Message</h3>
+              <p className="font-body text-sm text-muted-foreground mb-8">Remplissez le formulaire ci-dessous et nous vous répondrons sous peu.</p>
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Full Name</label>
+                    <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Nom Complet</label>
                     <input
                       type="text"
                       name="fullName"
@@ -132,24 +132,24 @@ const ContactSection = ({ content }: Props) => {
                       onChange={handleChange}
                       required
                       className="w-full bg-background border border-border rounded-xl px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-                      placeholder="Enter your name"
+                      placeholder="Entrez votre nom"
                     />
                   </div>
                   <div>
-                    <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Phone Number</label>
+                    <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Numéro de Téléphone</label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full bg-background border border-border rounded-xl px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-                      placeholder="Enter phone number"
+                      placeholder="Entrez le numéro de téléphone"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Email Address</label>
+                  <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Adresse Email</label>
                   <input
                     type="email"
                     name="email"
@@ -157,12 +157,12 @@ const ContactSection = ({ content }: Props) => {
                     onChange={handleChange}
                     required
                     className="w-full bg-background border border-border rounded-xl px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-                    placeholder="Enter your email"
+                    placeholder="Entrez votre email"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Select Date</label>
+                  <label className="block font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">Choisir une Date</label>
                   <input
                     type="date"
                     name="date"
@@ -180,13 +180,13 @@ const ContactSection = ({ content }: Props) => {
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-background border border-border rounded-xl px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all resize-none"
-                    placeholder="Tell us about your needs..."
+                    placeholder="Parlez-nous de vos besoins..."
                   />
                 </div>
 
                 <Button type="submit" variant="hero" size="lg" className="w-full group">
                   <Send size={16} className="mr-2 group-hover:translate-x-1 transition-transform" />
-                  Send Message
+                  Envoyer le Message
                 </Button>
               </form>
             </div>

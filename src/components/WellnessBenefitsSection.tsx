@@ -70,7 +70,7 @@ const WellnessBenefitsSection = ({ content }: Props) => {
           >
             <img
               src={content.working_hours_image}
-              alt="Working hours"
+              alt="Horaires"
               className="w-full h-full object-cover"
             />
           </motion.div>

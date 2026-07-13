@@ -1,11 +1,10 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ServicesSection from "@/components/ServicesSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import WellnessBenefitsSection from "@/components/WellnessBenefitsSection";
 import PremiumFeaturesSection from "@/components/PremiumFeaturesSection";
-import VideoSection from "@/components/VideoSection";
+import GallerySection from "@/components/GallerySection";
 import SpaPacksSection from "@/components/SpaPacksSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -21,12 +20,11 @@ const Index = () => {
       <Navbar />
       <HeroSection content={content.hero} />
       <AboutSection content={content.about} />
-      <ServicesSection content={content.services} />
+      <SpaPacksSection />
       <WhyChooseUsSection content={content.whyChooseUs} />
       <WellnessBenefitsSection content={content.wellness} />
       <PremiumFeaturesSection content={content.premiumFeatures} />
-      <VideoSection content={content.video} />
-      <SpaPacksSection />
+      <GallerySection content={content.gallery} />
       <ContactSection content={content.contact} />
       <Footer content={content.footer} />
     </div>

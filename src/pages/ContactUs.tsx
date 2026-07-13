@@ -9,26 +9,26 @@ import { toast } from "sonner";
 const contactInfo = [
   {
     icon: Phone,
-    label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    label: "Téléphone",
+    value: "+33 1 42 36 53 00",
+    href: "tel:+33142365300",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "hello@lumiere.com",
-    href: "mailto:hello@lumiere.com",
+    value: "bonjour@lumiere-salon.fr",
+    href: "mailto:bonjour@lumiere-salon.fr",
   },
   {
     icon: MapPin,
-    label: "Address",
-    value: "123 Beauty Lane, Suite 100\nNew York, NY 10001",
-    href: "https://maps.google.com",
+    label: "Adresse",
+    value: "31.6393154, -8.0220954\nMaroc",
+    href: "https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr",
   },
   {
     icon: Clock,
-    label: "Hours",
-    value: "Mon–Fri: 9am – 7pm\nSat–Sun: 10am – 5pm",
+    label: "Horaires",
+    value: "Lun–Ven : 9h – 19h\nSam–Dim : 10h – 17h",
     href: null,
   },
 ];
@@ -55,7 +55,7 @@ const ContactUs = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setSubmitting(false);
-    toast.success("Message sent! We'll get back to you soon.");
+    toast.success("Message envoyé ! Nous vous répondrons bientôt.");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
@@ -67,7 +67,7 @@ const ContactUs = () => {
       <div className="bg-foreground text-background py-8">
         <div className="max-w-6xl mx-auto px-6">
           <h1 className="font-display text-3xl">
-            Contact <span className="italic">Us</span>
+            Contactez-<span className="italic">Nous</span>
           </h1>
         </div>
       </div>
@@ -83,13 +83,13 @@ const ContactUs = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Get in Touch</p>
+              <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Contactez-nous</p>
               <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
-                We'd Love to <span className="italic">Hear</span> From You
+                Nous Serions Ravis de <span className="italic">Vous Entendre</span>
               </h2>
               <p className="font-body text-muted-foreground text-lg leading-relaxed max-w-xl mx-auto">
-                Have a question about our services? Ready to book an appointment? Or just want to say hello?
-                We're here to help.
+                Une question sur nos services ? Prêt à réserver un rendez-vous ? Ou simplement envie de dire bonjour ?
+                Nous sommes là pour vous aider.
               </p>
             </motion.div>
 
@@ -136,9 +136,9 @@ const ContactUs = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Send a Message</p>
+              <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Envoyez un message</p>
               <h2 className="font-display text-3xl md:text-4xl text-foreground">
-                Drop Us a <span className="italic">Line</span>
+                Écrivez-<span className="italic">Nous</span>
               </h2>
             </motion.div>
 
@@ -153,7 +153,7 @@ const ContactUs = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-2">
-                    Name *
+                    Nom *
                   </label>
                   <input
                     type="text"
@@ -162,7 +162,7 @@ const ContactUs = () => {
                     onChange={handleChange}
                     required
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="Your name"
+                    placeholder="Votre nom"
                   />
                 </div>
                 <div>
@@ -176,7 +176,7 @@ const ContactUs = () => {
                     onChange={handleChange}
                     required
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="your@email.com"
+                    placeholder="votre@email.com"
                   />
                 </div>
               </div>
@@ -184,7 +184,7 @@ const ContactUs = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-2">
-                    Phone
+                    Téléphone
                   </label>
                   <input
                     type="tel"
@@ -192,12 +192,12 @@ const ContactUs = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+33 1 42 00 00 00"
                   />
                 </div>
                 <div>
                   <label className="block font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-2">
-                    Subject *
+                    Objet *
                   </label>
                   <select
                     name="subject"
@@ -206,12 +206,12 @@ const ContactUs = () => {
                     required
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="booking">Booking Inquiry</option>
-                    <option value="services">Service Question</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="other">Other</option>
+                    <option value="">Sélectionnez un objet</option>
+                    <option value="booking">Demande de réservation</option>
+                    <option value="services">Question sur les services</option>
+                    <option value="feedback">Avis</option>
+                    <option value="partnership">Partenariat</option>
+                    <option value="other">Autre</option>
                   </select>
                 </div>
               </div>
@@ -227,7 +227,7 @@ const ContactUs = () => {
                   required
                   rows={5}
                   className="w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder="Tell us how we can help..."
+                  placeholder="Dites-nous comment nous pouvons vous aider..."
                 />
               </div>
 
@@ -236,12 +236,12 @@ const ContactUs = () => {
                   {submitting ? (
                     <span className="flex items-center gap-2">
                       <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                      Sending...
+                      Envoi en cours...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
                       <Send size={16} />
-                      Send Message
+                      Envoyer le Message
                     </span>
                   )}
                 </Button>
@@ -253,8 +253,8 @@ const ContactUs = () => {
         {/* Map Section */}
         <section className="h-80 bg-muted relative">
           <iframe
-            title="Lumière Salon Location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095943055!2d-74.00425878428698!3d40.74076794379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle%20New%20York!5e0!3m2!1sen!2sus!4v1635959562000!5m2!1sen!2sus"
+            title="Localisation du Salon Lumière"
+            src="https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}

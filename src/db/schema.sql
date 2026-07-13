@@ -39,6 +39,14 @@ CREATE TABLE IF NOT EXISTS appointments (
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
+  name TEXT NOT NULL DEFAULT '',
+  email TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE TABLE IF NOT EXISTS site_content (
   id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
   section_key TEXT NOT NULL UNIQUE,

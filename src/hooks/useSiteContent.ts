@@ -128,6 +128,7 @@ export interface GalleryItem {
 }
 
 export interface GalleryContent {
+  show_gallery: boolean;
   items: GalleryItem[];
 }
 
@@ -158,60 +159,60 @@ export interface SiteContent {
 
 export const defaultSiteContent: SiteContent = {
   hero: {
-    subtitle: "Premium Beauty Experience",
-    title_line1: "Elevate Your",
-    title_line2: "Everyday Beauty",
-    description: "Step into a world of refined elegance. Our luxurious treatments are designed to reveal the most radiant version of you.",
-    cta_text: "Book Your Appointment",
+    subtitle: "Expérience Beauté Premium",
+    title_line1: "Sublimez Votre",
+    title_line2: "Beauté Quotidienne",
+    description: "Pénétrez dans un monde d'élégance raffinée. Nos soins de luxe sont conçus pour révéler la version la plus radieuse de vous-même.",
+    cta_text: "Réservez Votre Rendez-vous",
     image_url: "",
   },
   about: {
-    subtitle: "About Us",
-    title: "Bringing our, relaxation and ",
-    title_italic: "care together",
-    description: "We are passionate about helping people achieve a healthier and more balanced life style through professional spa treatments and holistic our therapies. Through personalized spa treatments.",
-    feature1: "Spa treatments designed to relax your body and mind.",
-    feature2: "A peaceful environment combined with expert care",
+    subtitle: "À Propos",
+    title: "Apportons ",
+    title_italic: "relaxation et soin ensemble",
+    description: "Nous sommes passionnés par l'aide apportée aux personnes pour atteindre un mode de vie plus sain et équilibré grâce à des soins spa professionnels et thérapies holistiques personnalisées.",
+    feature1: "Des soins spa conçus pour détendre votre corps et votre esprit.",
+    feature2: "Un environnement paisible allié à des soins d'expert",
     stat1_number: "100+",
-    stat1_label: "Luxury Spa Treatments & our Services",
+    stat1_label: "Soins Spa de Luxe & Services",
     stat2_number: "40+",
-    stat2_label: "Certified our Therapists and Spa Experts",
+    stat2_label: "Thérapeutes Certifiés et Experts Spa",
     image_url: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=600&h=750&fit=crop",
     image2_url: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=300&fit=crop",
     image3_url: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=300&h=300&fit=crop",
   },
   services: {
-    subtitle: "Our Services",
-    title: "Discover our luxurious spa ",
-    title_italic: "and our services",
-    description: "From soothing massages to revitalizing facial treatments, our services are designed to enhance your beauty, promote healing, and improve overall well-being.",
+    subtitle: "Nos Services",
+    title: "Découvrez notre spa ",
+    title_italic: "de luxe et nos services",
+    description: "Des massages apaisants aux soins visage revitalisants, nos services sont conçus pour sublimer votre beauté, favoriser la guérison et améliorer votre bien-être général.",
     items: [
       {
         number: "01",
         icon: "Stone",
-        title: "Hot Stone Therapy",
-        description: "Warm stones are gently placed on key points of the body to relieve tension and promote deep relaxation.",
+        title: "Thérapie aux Pierres Chaudes",
+        description: "Des pierres chaudes sont doucement placées sur les points clés du corps pour soulager les tensions et favoriser une relaxation profonde.",
         image_url: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=300&fit=crop",
       },
       {
         number: "02",
         icon: "Face",
-        title: "Facial Skin Treatment",
-        description: "Rejuvenate your skin with our luxurious facial treatments that cleanse, exfoliate, and nourish.",
+        title: "Soin du Visage",
+        description: "Rajeunissez votre peau avec nos soins visage luxueux qui nettoient, exfolient et nourrissent en profondeur.",
         image_url: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
       },
       {
         number: "03",
         icon: "Hands",
-        title: "Swedish Massage",
-        description: "Gentle yet effective massage that enhances blood flow, reduces stress, and promotes overall wellness.",
+        title: "Massage Suédois",
+        description: "Un massage doux mais efficace qui améliore la circulation sanguine, réduit le stress et favorise le bien-être général.",
         image_url: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop",
       },
       {
         number: "04",
         icon: "Spa",
-        title: "Aromatherapy",
-        description: "Essential oils and gentle massage techniques to promote relaxation and emotional well-being.",
+        title: "Aromathérapie",
+        description: "Des huiles essentielles et des techniques de massage douces pour favoriser la relaxation et le bien-être émotionnel.",
         image_url: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
       },
     ],
@@ -219,65 +220,65 @@ export const defaultSiteContent: SiteContent = {
     users: "40,000+",
   },
   whyChooseUs: {
-    subtitle: "Why Choose Us",
-    title: "The perfect place to ",
-    title_italic: "relaxation and rejuvenation",
-    description: "Our team of professional therapists is committed to providing you with the highest quality spa treatments. We use only the finest products and techniques to ensure your complete satisfaction.",
+    subtitle: "Pourquoi Nous Choisir",
+    title: "L'endroit parfait pour la ",
+    title_italic: "relaxation et la régénération",
+    description: "Notre équipe de thérapeutes professionnels s'engage à vous fournir les soins spa de la plus haute qualité. Nous utilisons uniquement les meilleurs produits et techniques pour garantir votre satisfaction totale.",
     image_url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&h=700&fit=crop",
     since_year: "2015",
-    certified_title: "Certified Our Therapists",
-    certified_description: "Our team of professional therapists is highly trained and certified to provide the best spa treatments.",
+    certified_title: "Thérapeutes Certifiés",
+    certified_description: "Notre équipe de thérapeutes professionnels est hautement formée et certifiée pour offrir les meilleurs soins spa.",
     experience_years: "25+",
-    experience_description: "Years of experience in spa and wellness industry",
+    experience_description: "Années d'expérience dans l'industrie du spa et du bien-être",
   },
   wellness: {
-    subtitle: "Wellness Benefits",
-    title: "Experience the ",
-    title_italic: "difference",
-    description: "From reducing stress and improving circulation to enhancing skin health and overall well-being, our treatments provide lasting benefits.",
+    subtitle: "Bienfaits du Wellness",
+    title: "Découvrez la ",
+    title_italic: "différence",
+    description: "Du soulagement du stress à l'amélioration de la circulation, en passant par la santé de la peau et le bien-être général, nos soins offrent des bienfaits durables.",
     items: [
       {
         icon: "Sparkles",
-        title: "Improved Skin Health",
-        description: "Our treatments help improve skin texture, reduce signs of aging, and promote a healthy glow.",
-        features: ["Deep cleansing & hydration", "Anti-aging treatments", "Skin rejuvenation"],
+        title: "Santé de la Peau Améliorée",
+        description: "Nos soins aident à améliorer la texture de la peau, réduisent les signes de l'âge et favorisent un éclat sain.",
+        features: ["Nettoyage profond & hydratation", "Traitements anti-âge", "Régénération cutanée"],
       },
       {
         icon: "Heart",
-        title: "Deep Relaxation",
-        description: "Our spa treatments help reduce stress, ease muscle tension, and promote overall well-being.",
-        features: ["Stress relief therapy", "Muscle tension release", "Mental clarity"],
+        title: "Relaxation Profonde",
+        description: "Nos soins spa aident à réduire le stress, à soulager les tensions musculaires et à favoriser le bien-être général.",
+        features: ["Thérapie anti-stress", "Libération des tensions musculaires", "Clarté mentale"],
       },
     ],
     working_hours_image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop",
-    categories: ["Spa Treatments", "Beauty and Wellness", "Premium Spa Services", "Relaxing Massage"],
+    categories: ["Soins Spa", "Beauté et Bien-être", "Services Spa Premium", "Massage Relaxant"],
   },
   premiumFeatures: {
-    subtitle: "Our Core Features",
-    title: "Premium features ",
-    title_italic: "that set us apart",
-    description: "From skilled therapists to calming spa environments, our core features are designed to create a relaxing and rejuvenating experience for every client.",
+    subtitle: "Nos Atouts",
+    title: "Des fonctionnalités ",
+    title_italic: "qui nous distinguent",
+    description: "Des thérapeutes qualifiés aux environnements spa apaisants, nos atouts sont conçus pour créer une expérience relaxante et régénérante pour chaque client.",
     image_url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&h=500&fit=crop",
     features: [
       {
         number: "01",
-        title: "Professional & Certified Therapists",
-        description: "Our experienced therapists provide expert care, ensuring each treatment is tailored to your specific needs.",
+        title: "Thérapeutes Professionnels & Certifiés",
+        description: "Nos thérapeutes expérimentés fournissent des soins d'expert, garantissant que chaque traitement est adapté à vos besoins spécifiques.",
       },
       {
         number: "02",
-        title: "Natural & Eco-Friendly Products",
-        description: "We use only natural, organic, and eco-friendly products that are gentle on your skin and the environment.",
+        title: "Produits Naturels & Écologiques",
+        description: "Nous utilisons uniquement des produits naturels, biologiques et écologiques, doux pour votre peau et l'environnement.",
       },
       {
         number: "03",
-        title: "Calm & Luxurious Environment",
-        description: "Our spa is designed to provide a tranquil atmosphere where you can fully relax and unwind.",
+        title: "Environnement Calme & Luxueux",
+        description: "Notre spa est conçu pour offrir une atmosphère tranquille où vous pouvez vous détendre complètement.",
       },
       {
         number: "04",
-        title: "Personalized Our Treatments",
-        description: "Every treatment is customized to meet your unique needs and preferences for the best results.",
+        title: "Traitements Personnalisés",
+        description: "Chaque traitement est personnalisé pour répondre à vos besoins et préférences uniques pour les meilleurs résultats.",
       },
     ],
   },
@@ -286,64 +287,65 @@ export const defaultSiteContent: SiteContent = {
     thumbnail_url: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop",
   },
   pricing: {
-    subtitle: "Our Pricing Plans",
-    title: "Choose the ",
-    title_italic: "perfect plan",
-    description: "Whether you're looking for a quick relaxation session or a complete spa retreat, our flexible packages are designed to suit your needs and budget.",
+    subtitle: "Nos Forfaits",
+    title: "Choisissez le ",
+    title_italic: "forfait parfait",
+    description: "Que vous cherchiez une session de relaxation rapide ou une retraite spa complète, nos forfaits flexibles sont conçus pour répondre à vos besoins et budget.",
     plans: [
       {
-        name: "Basic Package",
-        price: "$199.00",
-        period: "monthly",
+        name: "Forfait Essentiel",
+        price: "199,00 €",
+        period: "mensuel",
         features: [
-          "Head & Shoulder Therapy",
-          "60 Minute Full Body Massage",
-          "Basic Facial Treatment",
-          "Access to Sauna & Steam Room",
+          "Thérapie Tête & Épaules",
+          "Massage Corps Complet 60 Min",
+          "Soin Visage Essentiel",
+          "Accès Sauna & Hammam",
         ],
         popular: false,
       },
       {
-        name: "Premium Package",
-        price: "$289.00",
-        period: "monthly",
+        name: "Forfait Premium",
+        price: "289,00 €",
+        period: "mensuel",
         features: [
-          "Head & Shoulder Therapy",
-          "90 Minute Full Body Massage",
-          "Premium Facial Treatment",
-          "Access to All Spa Facilities",
-          "Aromatherapy Session",
+          "Thérapie Tête & Épaules",
+          "Massage Corps Complet 90 Min",
+          "Soin Visage Premium",
+          "Accès à Toutes les Installations",
+          "Session d'Aromathérapie",
         ],
         popular: true,
       },
     ],
   },
   contact: {
-    subtitle: "Book An Appointment",
-    title: "Relax & ",
-    title_italic: "Refresh",
-    description: "Our professional therapists provide personalized treatments that help you relax, reduce stress, and restore balance to your mind and body.",
-    phone: "+012 456 789",
-    phone2: "+012 456 789",
-    email: "info@spasalon.com",
+    subtitle: "Prenez Rendez-vous",
+    title: "Détendez-vous & ",
+    title_italic: "Ressourcez-vous",
+    description: "Nos thérapeutes professionnels offrent des soins personnalisés qui vous aident à vous détendre, réduire le stress et rétablir l'équilibre de votre esprit et de votre corps.",
+    phone: "+33 1 23 45 67 89",
+    phone2: "+33 1 23 45 67 90",
+    email: "info@lumiere-salon.com",
     image_url: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&h=400&fit=crop",
   },
   gallery: {
+    show_gallery: true,
     items: [
-      { image_url: "", alt: "Balayage hair color", label: "Hair Color" },
-      { image_url: "", alt: "Rose gold nail art", label: "Nail Art" },
-      { image_url: "", alt: "Spa facial treatment", label: "Spa Ritual" },
-      { image_url: "", alt: "Bridal updo hairstyle", label: "Bridal Hair" },
-      { image_url: "", alt: "Makeup products flat lay", label: "Makeup" },
-      { image_url: "", alt: "Luxury pedicure setup", label: "Pedicure" },
+      { image_url: "", alt: "Coloration balayage", label: "Coloration" },
+      { image_url: "", alt: "Art floral sur ongles", label: "Manucure" },
+      { image_url: "", alt: "Soin facial spa", label: "Rituel Spa" },
+      { image_url: "", alt: "Coiffure de mariage", label: "Coiffure Mariage" },
+      { image_url: "", alt: "Produits de maquillage", label: "Maquillage" },
+      { image_url: "", alt: "Pédicure de luxe", label: "Pédicure" },
     ],
   },
   footer: {
-    brand_description: "Where elegance meets expertise. A sanctuary of beauty crafted for the modern woman.",
-    hours: ["Mon – Fri: 9:00 – 20:00", "Saturday: 10:00 – 18:00", "Sunday: Closed"],
-    address: "128 Rue de la Beauté, Paris",
+    brand_description: "Là où l'élégance rencontre l'expertise. Un sanctuaire de beauté créé pour la femme moderne.",
+    hours: ["Lun – Ven : 9h00 – 20h00", "Samedi : 10h00 – 18h00", "Dimanche : Fermé"],
+    address: "Maroc",
     phone: "+33 1 23 45 67 89",
-    email: "hello@lumiere-salon.com",
+    email: "bonjour@lumiere-salon.com",
     instagram: "#",
     facebook: "#",
     twitter: "#",
@@ -360,11 +362,19 @@ export const useSiteContent = () => {
         const result = await turso.execute("SELECT section_key, content FROM site_content");
         const data = result.rows as { section_key: string; content: string }[];
         if (data && data.length > 0) {
-          const merged = { ...defaultSiteContent };
+          const merged = JSON.parse(JSON.stringify(defaultSiteContent)) as SiteContent;
           data.forEach((row) => {
             const key = row.section_key as keyof SiteContent;
             if (key in merged) {
-              merged[key] = { ...merged[key], ...JSON.parse(row.content) };
+              const dbContent = JSON.parse(row.content);
+              const target = merged[key] as Record<string, any>;
+              for (const k of Object.keys(dbContent)) {
+                if (dbContent[k] !== null && typeof dbContent[k] === "object" && !Array.isArray(dbContent[k]) && typeof target[k] === "object" && !Array.isArray(target[k])) {
+                  target[k] = { ...target[k], ...dbContent[k] };
+                } else {
+                  target[k] = dbContent[k];
+                }
+              }
             }
           });
           setContent(merged);
@@ -393,6 +403,15 @@ export const saveSectionContent = async (sectionKey: string, content: any) => {
 };
 
 export const uploadSiteImage = async (file: File, _path: string) => {
-  const url = URL.createObjectURL(file);
-  return { url, error: null };
+  try {
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error("Échec de la lecture du fichier"));
+      reader.readAsDataURL(file);
+    });
+    return { url: dataUrl, error: null };
+  } catch (e) {
+    return { url: null, error: e as Error };
+  }
 };

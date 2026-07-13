@@ -48,7 +48,7 @@ const GalleryManager = ({ items, onChange, onSave, saving }: GalleryManagerProps
   return (
     <div className="space-y-6">
       <p className="font-body text-sm text-muted-foreground">
-        Drag items to reorder. Images without an uploaded photo will use the default placeholder.
+        Faites glisser les éléments pour les réordonner. Les images sans photo téléchargée utiliseront l'espace réservé par défaut.
       </p>
 
       <div className="space-y-4">
@@ -79,21 +79,21 @@ const GalleryManager = ({ items, onChange, onSave, saving }: GalleryManagerProps
 
               <div className="flex-1 space-y-3">
                 <div>
-                  <label className={labelClass}>Label</label>
+                  <label className={labelClass}>Libellé</label>
                   <input
                     className={inputClass}
                     value={item.label}
                     onChange={(e) => updateItem(i, { label: e.target.value })}
-                    placeholder="e.g. Hair Color"
+                    placeholder="ex. Coloration"
                   />
                 </div>
                 <div>
-                  <label className={labelClass}>Alt Text</label>
+                  <label className={labelClass}>Texte Alternatif</label>
                   <input
                     className={inputClass}
                     value={item.alt}
                     onChange={(e) => updateItem(i, { alt: e.target.value })}
-                    placeholder="Describe the image for accessibility"
+                    placeholder="Décrivez l'image pour l'accessibilité"
                   />
                 </div>
               </div>
@@ -113,11 +113,11 @@ const GalleryManager = ({ items, onChange, onSave, saving }: GalleryManagerProps
         onClick={addItem}
         className="flex items-center gap-2 text-sm font-body text-primary hover:text-foreground transition-colors"
       >
-        <Plus size={14} /> Add gallery item
+        <Plus size={14} /> Ajouter un élément de galerie
       </button>
 
       <Button variant="hero" onClick={onSave} disabled={saving}>
-        <Save size={14} className="mr-2" /> {saving ? "Saving..." : "Save Gallery"}
+        <Save size={14} className="mr-2" /> {saving ? "Enregistrement..." : "Enregistrer la Galerie"}
       </Button>
     </div>
   );

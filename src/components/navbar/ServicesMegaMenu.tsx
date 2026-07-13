@@ -1,15 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Scissors, Sparkles, Eye, Droplets, Clock, ArrowRight } from "lucide-react";
+import { ChevronDown, Sparkles, Eye, Droplets, Clock, ArrowRight, Heart } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { turso } from "@/lib/db";
 
 const iconMap: Record<string, React.ElementType> = {
-  Scissors,
-  Sparkles,
-  Eye,
-  Droplets,
+  Massages: Heart,
+  Hammams: Droplets,
+  Packs: Sparkles,
 };
 
 const ServicesMegaMenu = () => {
@@ -78,7 +77,7 @@ const ServicesMegaMenu = () => {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               onMouseLeave={() => setOpen(false)}
-              className="fixed left-0 right-0 top-16 z-50 bg-background border-b border-border shadow-2xl"
+              className="fixed left-0 right-0 top-20 z-50 bg-background border-b border-border shadow-2xl"
             >
               <div className="max-w-6xl mx-auto px-6 md:px-12 py-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -114,7 +113,7 @@ const ServicesMegaMenu = () => {
                                     </div>
                                   </div>
                                   <span className="font-body text-xs text-primary font-medium">
-                                    €{svc.price}
+                                    {svc.price} DH
                                   </span>
                                 </Link>
                               </li>
@@ -127,9 +126,9 @@ const ServicesMegaMenu = () => {
                     // Fallback when no services in DB
                     <>
                       {[
-                        { name: "Hair", icon: Scissors, items: ["Precision Cut", "Color & Highlights", "Styling & Blowout", "Treatments"] },
-                        { name: "Nails", icon: Sparkles, items: ["Classic Manicure", "Gel Extensions", "Nail Art", "Spa Pedicure"] },
-                        { name: "Beauty", icon: Eye, items: ["Bridal Makeup", "Everyday Glam", "Lash Extensions", "Brow Shaping"] },
+                        { name: "Massages", icon: Heart, items: ["Thérapie Tête & Épaules", "Massage Corps 60 Min", "Massage Corps 90 Min", "Aromathérapie"] },
+                        { name: "Hammams", icon: Droplets, items: ["Sauna & Hammam", "Toutes les Installations", "Soin Visage Essentiel", "Soin Visage Premium"] },
+                        { name: "Packs", icon: Sparkles, items: ["Forfait Essentiel", "Forfait Premium"] },
                       ].map((cat) => (
                         <div key={cat.name} className="space-y-4">
                           <div className="flex items-center gap-2 mb-4">
@@ -163,13 +162,13 @@ const ServicesMegaMenu = () => {
                     
                     <div className="relative z-10">
                       <p className="font-body text-[10px] uppercase tracking-[0.25em] text-primary mb-2">
-                        New Client Offer
+                        Offre Nouveau Client
                       </p>
                       <h4 className="font-display text-2xl mb-2">
-                        20% Off Your <span className="italic">First Visit</span>
+                        -20% Sur Votre <span className="italic">Première Visite</span>
                       </h4>
                       <p className="font-body text-xs text-background/70 leading-relaxed">
-                        Experience luxury beauty with an exclusive welcome discount.
+                        Profitez de la beauté de luxe avec une remise de bienvenue exclusive.
                       </p>
                     </div>
                     
@@ -178,7 +177,7 @@ const ServicesMegaMenu = () => {
                       onClick={() => setOpen(false)}
                       className="relative z-10 mt-6 inline-flex items-center gap-2 font-body text-xs uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors group"
                     >
-                      Book Now
+                      Réserver
                       <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
@@ -187,9 +186,9 @@ const ServicesMegaMenu = () => {
                 {/* Bottom Bar */}
                 <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
                   <p className="font-body text-xs text-muted-foreground">
-                    Can't find what you're looking for?{" "}
+                    Vous ne trouvez pas ce que vous cherchez ?{" "}
                     <a href="/#contact" className="text-primary hover:underline">
-                      Contact us
+                      Contactez-nous
                     </a>
                   </p>
                   <Link
@@ -197,7 +196,7 @@ const ServicesMegaMenu = () => {
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center gap-2 font-body text-xs uppercase tracking-[0.15em] text-foreground hover:text-primary transition-colors group"
                   >
-                    View All Services
+                    Voir Tous les Services
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>

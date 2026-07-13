@@ -41,12 +41,12 @@ const PricingSection = ({ content }: Props) => {
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full font-body text-xs uppercase tracking-wider">
-                  Most Popular
+                  Le Plus Populaire
                 </div>
               )}
 
               <h3 className="font-display text-2xl mb-2">{plan.name}</h3>
-              <p className="font-body text-sm text-muted-foreground mb-6">Perfect for a quick and relaxing spa experience</p>
+              <p className="font-body text-sm text-muted-foreground mb-6">Parfait pour une expérience spa rapide et relaxante</p>
 
               <div className="mb-8">
                 <span className="font-display text-5xl text-primary">{plan.price}</span>
@@ -54,7 +54,7 @@ const PricingSection = ({ content }: Props) => {
               </div>
 
               <div className="mb-8">
-                <h4 className="font-body text-sm font-medium mb-4">What's Included:</h4>
+                <h4 className="font-body text-sm font-medium mb-4">Ce Qui Est Inclus :</h4>
                 <ul className="space-y-3">
                   {plan.features.map((feature, j) => (
                     <li key={j} className="flex items-center gap-3 font-body text-sm text-muted-foreground">
@@ -68,7 +68,7 @@ const PricingSection = ({ content }: Props) => {
               </div>
 
               <Button variant={plan.popular ? "hero" : "elegant"} size="lg" className="w-full">
-                Get Started With Plan
+                Commencer Avec Ce Forfait
               </Button>
             </motion.div>
           ))}

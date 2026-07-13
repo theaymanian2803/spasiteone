@@ -25,7 +25,7 @@ const WhyChooseUsSection = ({ content }: Props) => {
               className="w-full aspect-[4/5] object-contain bg-secondary/30 rounded-2xl p-8"
             />
             <div className="absolute top-8 left-8 bg-primary text-white rounded-2xl p-4 shadow-xl">
-              <p className="font-body text-xs uppercase tracking-wider opacity-80">Proudly Serving Since</p>
+              <p className="font-body text-xs uppercase tracking-wider opacity-80">À Votre Service Depuis</p>
               <p className="font-display text-3xl">{content.since_year}</p>
             </div>
           </motion.div>
@@ -72,14 +72,14 @@ const WhyChooseUsSection = ({ content }: Props) => {
                   <Clock size={20} />
                 </div>
                 <div>
-                  <h4 className="font-display text-lg mb-1">{content.experience_years} Years of Experience</h4>
+                  <h4 className="font-display text-lg mb-1">{content.experience_years} Années d'Expérience</h4>
                   <p className="font-body text-sm opacity-80">{content.experience_description}</p>
                 </div>
               </motion.div>
             </div>
 
             <Button variant="hero" size="lg">
-              Book Now
+              Réserver
             </Button>
           </motion.div>
         </div>

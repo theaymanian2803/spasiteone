@@ -51,7 +51,7 @@ const AdminCategories = () => {
   };
 
   const handleSave = async () => {
-    if (!form.name.trim()) { toast.error("Name is required"); return; }
+    if (!form.name.trim()) { toast.error("Le nom est requis"); return; }
     const slug = form.slug || generateSlug(form.name);
     setSaving(true);
 
@@ -60,17 +60,17 @@ const AdminCategories = () => {
         "UPDATE categories SET name = ?, slug = ?, description = ?, display_order = ?, active = ?, updated_at = datetime('now') WHERE id = ?",
         [form.name, slug, form.description, form.display_order, form.active, editing.id]
       );
-      toast.success("Category updated");
+      toast.success("Catégorie mise à jour");
     } else {
       // Check slug uniqueness
       const existing = await turso.execute("SELECT id FROM categories WHERE slug = ?", [slug]);
-      if (existing.rows.length > 0) { toast.error("A category with this name already exists"); setSaving(false); return; }
+      if (existing.rows.length > 0) { toast.error("Une catégorie avec ce nom existe déjà"); setSaving(false); return; }
 
       await turso.execute(
         "INSERT INTO categories (name, slug, description, display_order, active) VALUES (?, ?, ?, ?, ?)",
         [form.name, slug, form.description, form.display_order, form.active]
       );
-      toast.success("Category created");
+      toast.success("Catégorie créée");
     }
     setSaving(false);
     setDialogOpen(false);
@@ -85,13 +85,13 @@ const AdminCategories = () => {
       const servicesUsing = await turso.execute("SELECT COUNT(*) as count FROM services WHERE category = ?", [cat.name]);
       const count = servicesUsing.rows[0]?.count as number ?? 0;
       if (count > 0) {
-        toast.error(`Cannot delete: ${count} service(s) use this category. Reassign them first.`);
+        toast.error(`Impossible de supprimer : ${count} service(s) utilisent cette catégorie. Réaffectez-les d'abord.`);
         setDeleteId(null);
         return;
       }
     }
     await turso.execute("DELETE FROM categories WHERE id = ?", [deleteId]);
-    toast.success("Category deleted");
+    toast.success("Catégorie supprimée");
     setDeleteId(null);
     fetchCategories();
   };
@@ -103,15 +103,15 @@ const AdminCategories = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-display text-2xl">Category <span className="italic">Management</span></h1>
-        <Button variant="hero" size="sm" onClick={openCreate}><Plus size={16} className="mr-1" /> Add Category</Button>
+        <h1 className="font-display text-2xl">Gestion des <span className="italic">Catégories</span></h1>
+        <Button variant="hero" size="sm" onClick={openCreate}><Plus size={16} className="mr-1" /> Ajouter une Catégorie</Button>
       </div>
 
       <div className="border border-border rounded-sm overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-muted/30">
-              {["Order", "Name", "Slug", "Description", "Status", "Actions"].map((h) => (
+              {["Ordre", "Nom", "Slug", "Description", "Statut", "Actions"].map((h) => (
                 <th key={h} className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-2 px-3">{h}</th>
               ))}
             </tr>
@@ -130,7 +130,7 @@ const AdminCategories = () => {
                 <td className="py-3 px-3 font-body text-sm text-muted-foreground">{cat.description || "—"}</td>
                 <td className="py-3 px-3">
                   <span className={`text-xs px-2 py-0.5 rounded-full ${cat.active ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
-                    {cat.active ? "Active" : "Inactive"}
+                    {cat.active ? "Actif" : "Inactif"}
                   </span>
                 </td>
                 <td className="py-3 px-3">
@@ -146,21 +146,21 @@ const AdminCategories = () => {
       </div>
 
       {categories.length === 0 && (
-        <p className="text-center font-body text-sm text-muted-foreground italic py-8">No categories yet.</p>
+        <p className="text-center font-body text-sm text-muted-foreground italic py-8">Aucune catégorie pour le moment.</p>
       )}
 
       {/* Create/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-display">{editing ? "Edit Category" : "New Category"}</DialogTitle>
+            <DialogTitle className="font-display">{editing ? "Modifier la Catégorie" : "Nouvelle Catégorie"}</DialogTitle>
             <DialogDescription className="font-body text-sm text-muted-foreground">
-              {editing ? "Update the category details below." : "Fill in the details for the new category."}
+              {editing ? "Mettez à jour les détails de la catégorie ci-dessous." : "Remplissez les détails de la nouvelle catégorie."}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Name *</label>
+              <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Nom *</label>
               <input
                 className={inputClass}
                 value={form.name}
@@ -168,7 +168,7 @@ const AdminCategories = () => {
                   const name = e.target.value;
                   setForm({ ...form, name, slug: editing ? form.slug : generateSlug(name) });
                 }}
-                placeholder="e.g. Massages"
+                placeholder="ex. Massages"
               />
             </div>
             <div>
@@ -177,9 +177,9 @@ const AdminCategories = () => {
                 className={inputClass}
                 value={form.slug}
                 onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                placeholder="e.g. massages"
+                placeholder="ex. massages"
               />
-              <p className="font-body text-xs text-muted-foreground mt-1">Auto-generated from name. Used in URLs.</p>
+              <p className="font-body text-xs text-muted-foreground mt-1">Généré automatiquement à partir du nom. Utilisé dans les URLs.</p>
             </div>
             <div>
               <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Description</label>
@@ -187,12 +187,12 @@ const AdminCategories = () => {
                 className={`${inputClass} min-h-[80px] resize-none`}
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder="Brief description of this category"
+                placeholder="Brève description de cette catégorie"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Display Order</label>
+                <label className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1 block">Ordre d'Affichage</label>
                 <input
                   type="number"
                   className={inputClass}
@@ -208,13 +208,13 @@ const AdminCategories = () => {
                   onChange={(e) => setForm({ ...form, active: e.target.checked ? 1 : 0 })}
                   className="accent-primary"
                 />
-                <label htmlFor="cat-active" className="font-body text-sm">Active</label>
+                <label htmlFor="cat-active" className="font-body text-sm">Actif</label>
               </div>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="elegant" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button variant="hero" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save"}</Button>
+            <Button variant="elegant" onClick={() => setDialogOpen(false)}>Annuler</Button>
+            <Button variant="hero" onClick={handleSave} disabled={saving}>{saving ? "Enregistrement..." : "Enregistrer"}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -223,14 +223,14 @@ const AdminCategories = () => {
       <Dialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-display">Delete Category</DialogTitle>
+            <DialogTitle className="font-display">Supprimer la Catégorie</DialogTitle>
             <DialogDescription className="font-body text-sm text-muted-foreground">
-              Are you sure? Services using this category will need to be reassigned first.
+              Êtes-vous sûr ? Les services utilisant cette catégorie devront d'abord être réaffectés.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="elegant" onClick={() => setDeleteId(null)}>Cancel</Button>
-            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+            <Button variant="elegant" onClick={() => setDeleteId(null)}>Annuler</Button>
+            <Button variant="destructive" onClick={handleDelete}>Supprimer</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

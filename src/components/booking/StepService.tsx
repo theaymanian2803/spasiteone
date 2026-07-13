@@ -12,12 +12,13 @@ interface Props {
   onNext: () => void;
 }
 
-const categories = ["Hair", "Nails", "Facials", "Makeup"];
+const fallbackCategories = ["Massages", "Hammams", "Packs"];
 
 const StepService = ({ data, update, onNext }: Props) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState("Hair");
+  const [categories, setCategories] = useState<string[]>(fallbackCategories);
+  const [activeCategory, setActiveCategory] = useState("Massages");
 
   useEffect(() => {
     turso.execute("SELECT * FROM services WHERE active = 1").then((result) => {
@@ -26,6 +27,11 @@ const StepService = ({ data, update, onNext }: Props) => {
         setServices(placeholderServices);
       } else {
         setServices(rows);
+        const cats = Array.from(new Set(rows.map((s) => s.category)));
+        if (cats.length > 0) {
+          setCategories(cats);
+          setActiveCategory(cats[0]);
+        }
       }
       setLoading(false);
     }).catch(() => {
@@ -38,8 +44,8 @@ const StepService = ({ data, update, onNext }: Props) => {
 
   return (
     <div>
-      <h2 className="font-display text-2xl mb-2">Select a Service</h2>
-      <p className="font-body text-sm text-muted-foreground mb-6">Choose the treatment you'd like to book.</p>
+      <h2 className="font-display text-2xl mb-2">Choisissez un Service</h2>
+      <p className="font-body text-sm text-muted-foreground mb-6">Sélectionnez le soin que vous souhaitez réserver.</p>
 
       {/* Category tabs */}
       <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
@@ -80,7 +86,7 @@ const StepService = ({ data, update, onNext }: Props) => {
                   <p className="font-body text-sm text-muted-foreground mt-1">{service.description}</p>
                 </div>
                 <div className="text-right shrink-0 ml-4">
-                  <p className="font-display text-lg">€{service.price}</p>
+                  <p className="font-display text-lg">{service.price} DH</p>
                 </div>
               </div>
               <div className="flex gap-4 mt-3 text-xs text-muted-foreground font-body">
@@ -94,7 +100,7 @@ const StepService = ({ data, update, onNext }: Props) => {
 
       <div className="mt-8 flex justify-end">
         <Button variant="hero" size="lg" onClick={onNext} disabled={!data.service}>
-          Continue
+          Continuer
         </Button>
       </div>
     </div>

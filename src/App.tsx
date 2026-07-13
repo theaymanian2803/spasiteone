@@ -10,6 +10,7 @@ import BookingPage from './pages/BookingPage'
 import ContactUs from './pages/ContactUs'
 import MyAppointments from './pages/MyAppointments'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import AdminLayout from './pages/AdminLayout'
 import AdminOverview from './pages/admin/AdminOverview'
 import AdminAppointments from './pages/admin/AdminAppointments'
@@ -19,6 +20,7 @@ import AdminCategories from './pages/admin/AdminCategories'
 import AdminSettings from './pages/admin/AdminSettings'
 import AdminContent from './pages/admin/AdminContent'
 import NotFound from './pages/NotFound'
+import WhatsAppButton from './components/WhatsAppButton'
 
 const queryClient = new QueryClient()
 
@@ -45,6 +47,7 @@ const App = () => {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/my-appointments" element={<MyAppointments />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminOverview />} />
                 <Route path="appointments" element={<AdminAppointments />} />
@@ -57,6 +60,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+          <WhatsAppButton />
         </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>

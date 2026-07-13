@@ -48,12 +48,12 @@ const AdminClients = () => {
 
   return (
     <div>
-      <h1 className="font-display text-2xl mb-6">Client <span className="italic">Directory</span></h1>
+      <h1 className="font-display text-2xl mb-6">Répertoire des <span className="italic">Clients</span></h1>
       <div className="border border-border rounded-sm overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-muted/30">
-              {["Name", "Email", "Phone", "Bookings", "Last Visit"].map((h) => (
+              {["Nom", "Email", "Téléphone", "Réservations", "Dernière Visite"].map((h) => (
                 <th key={h} className="text-left font-body text-xs uppercase tracking-[0.1em] text-muted-foreground py-3 px-3">{h}</th>
               ))}
             </tr>
@@ -69,7 +69,7 @@ const AdminClients = () => {
               </tr>
             ))}
             {clients.length === 0 && (
-              <tr><td colSpan={5} className="py-8 text-center font-body text-sm text-muted-foreground italic">No clients yet. Clients appear here after their first booking.</td></tr>
+              <tr><td colSpan={5} className="py-8 text-center font-body text-sm text-muted-foreground italic">Aucun client pour le moment. Les clients apparaissent ici après leur première réservation.</td></tr>
             )}
           </tbody>
         </table>

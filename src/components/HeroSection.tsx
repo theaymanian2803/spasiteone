@@ -47,7 +47,7 @@ const HeroSection = ({ content }: Props) => {
       {/* Full Background Image */}
       <div className="absolute inset-0">
         <motion.img
-          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&h=1080&fit=crop"
+          src="https://images.unsplash.com/photo-1693578538512-fc66f318c833?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Spa background"
           className="w-full h-full object-cover"
           initial={{ scale: 1.1 }}
@@ -118,7 +118,7 @@ const HeroSection = ({ content }: Props) => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search services... (e.g. massage, facial, nails)"
+                  placeholder="Rechercher des services... (ex: massage, soin, manucure)"
                   className="flex-1 bg-transparent px-4 py-4 font-body text-white placeholder:text-white/40 text-base focus:outline-none"
                 />
                 <button
@@ -126,7 +126,7 @@ const HeroSection = ({ content }: Props) => {
                   disabled={searching}
                   className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-sm font-medium px-6 py-4 transition-colors shrink-0"
                 >
-                  {searching ? "..." : "Search"}
+                  {searching ? "..." : "Rechercher"}
                 </button>
               </div>
 
@@ -144,8 +144,8 @@ const HeroSection = ({ content }: Props) => {
                         <p className="font-body text-xs text-gray-500 mt-0.5">{service.category} · {service.description?.slice(0, 60)}...</p>
                       </div>
                       <div className="text-right shrink-0 ml-4">
-                        <p className="font-display text-lg text-[#4a6741] font-bold">€{service.price}</p>
-                        <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">Book now</p>
+                        <p className="font-display text-lg text-[#4a6741] font-bold">{service.price} DH</p>
+                        <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">Réserver</p>
                       </div>
                     </button>
                   ))}
@@ -179,7 +179,7 @@ const HeroSection = ({ content }: Props) => {
             >
               <Link to="/contact">
                 <Phone size={16} className="mr-2" />
-                Contact Us
+                Contactez-nous
               </Link>
             </Button>
           </motion.div>
@@ -193,15 +193,15 @@ const HeroSection = ({ content }: Props) => {
           >
             <div className="flex items-center gap-2 text-white/60">
               <MapPin size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">123 Spa Street, Wellness City</span>
+              <span className="font-body text-sm">128 Rue de la Beauté, Paris</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Clock size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">Mon–Sat: 9:00 – 20:00</span>
+              <span className="font-body text-sm">Lun–Ven: 9h00 – 20h00</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Phone size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">+(123) 456-789</span>
+              <span className="font-body text-sm">+33 1 23 45 67 89</span>
             </div>
           </motion.div>
 
@@ -214,15 +214,15 @@ const HeroSection = ({ content }: Props) => {
           >
             <div>
               <p className="font-display text-4xl text-white font-bold">100+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Spa Treatments</p>
+              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Soins Spa</p>
             </div>
             <div>
               <p className="font-display text-4xl text-white font-bold">40+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Expert Therapists</p>
+              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Thérapeutes Experts</p>
             </div>
             <div>
               <p className="font-display text-4xl text-white font-bold">25+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Years Experience</p>
+              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Années d'Expérience</p>
             </div>
           </motion.div>
         </div>
@@ -239,7 +239,7 @@ const HeroSection = ({ content }: Props) => {
               <Sparkles size={22} className="text-[#a8d5a2]" />
             </div>
             <div>
-              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Client Rating</p>
+              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Note Clients</p>
               <p className="font-display text-2xl text-white font-bold">4.9/5</p>
               <div className="flex gap-0.5 mt-0.5">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -268,7 +268,7 @@ const HeroSection = ({ content }: Props) => {
               ))}
             </div>
             <div>
-              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Happy Clients</p>
+              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Clients Satisfaits</p>
               <p className="font-display text-2xl text-white font-bold">10K+</p>
             </div>
           </div>
@@ -282,7 +282,7 @@ const HeroSection = ({ content }: Props) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.5 }}
       >
-        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/40">Scroll</span>
+        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/40">Défiler</span>
         <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
           <motion.div
             className="w-1 h-2 bg-white/40 rounded-full"
