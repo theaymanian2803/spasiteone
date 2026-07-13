@@ -18,8 +18,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const { user, isAdmin, signOut } = useAuth();
-  const { content } = useSiteContent();
-  const showGallery = content.gallery.show_gallery;
+  const { content, loading } = useSiteContent();
+  const showGallery = loading ? false : content.gallery?.show_gallery === true;
   const megaRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 

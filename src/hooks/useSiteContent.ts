@@ -379,7 +379,8 @@ export const useSiteContent = () => {
           });
           setContent(merged);
         }
-      } catch {
+      } catch (e) {
+        console.error("[useSiteContent] Failed to load from DB:", e);
         // Use defaults if DB unavailable
       }
       setLoading(false);
