@@ -22,7 +22,7 @@ const GallerySection = ({ content }: Props) => {
           transition={{ duration: 0.6 }}
         >
           <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Notre Galerie</p>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground">
             Découvrez <span className="italic">nos réalisations</span>
           </h2>
         </motion.div>

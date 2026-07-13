@@ -65,8 +65,8 @@ const ContactUs = () => {
 
       {/* Header */}
       <div className="bg-foreground text-background py-8">
-        <div className="max-w-6xl mx-auto px-6">
-          <h1 className="font-display text-3xl">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h1 className="font-display text-2xl sm:text-3xl">
             Contactez-<span className="italic">Nous</span>
           </h1>
         </div>
@@ -84,10 +84,10 @@ const ContactUs = () => {
               transition={{ duration: 0.7 }}
             >
               <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Contactez-nous</p>
-              <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground mb-6">
                 Nous Serions Ravis de <span className="italic">Vous Entendre</span>
               </h2>
-              <p className="font-body text-muted-foreground text-lg leading-relaxed max-w-xl mx-auto">
+              <p className="font-body text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
                 Une question sur nos services ? Prêt à réserver un rendez-vous ? Ou simplement envie de dire bonjour ?
                 Nous sommes là pour vous aider.
               </p>
@@ -137,7 +137,7 @@ const ContactUs = () => {
               transition={{ duration: 0.7 }}
             >
               <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Envoyez un message</p>
-              <h2 className="font-display text-3xl md:text-4xl text-foreground">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-foreground">
                 Écrivez-<span className="italic">Nous</span>
               </h2>
             </motion.div>

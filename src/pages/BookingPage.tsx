@@ -122,11 +122,11 @@ const BookingPage = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
         <div className="bg-foreground text-background py-8">
-          <div className="max-w-3xl mx-auto px-6">
-            <h1 className="font-display text-3xl">Réservez Votre <span className="italic">Rendez-vous</span></h1>
+          <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <h1 className="font-display text-2xl sm:text-3xl">Réservez Votre <span className="italic">Rendez-vous</span></h1>
           </div>
         </div>
-        <div className="flex-1 flex items-center justify-center px-6 py-16">
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16">
           <div className="w-full max-w-lg text-center">
             <h2 className="font-display text-2xl mb-3">Comment souhaitez-vous continuer ?</h2>
             <p className="font-body text-sm text-muted-foreground mb-10">
@@ -183,38 +183,38 @@ const BookingPage = () => {
 
       {/* Header */}
       <div className="bg-foreground text-background py-8">
-        <div className="max-w-3xl mx-auto px-6">
-          <h1 className="font-display text-3xl">Réservez Votre <span className="italic">Rendez-vous</span></h1>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h1 className="font-display text-2xl sm:text-3xl">Réservez Votre <span className="italic">Rendez-vous</span></h1>
         </div>
       </div>
 
-      {/* Step indicator */}
-      <div className="max-w-3xl mx-auto px-6 py-8 flex-1 w-full">
-        <div className="flex items-center justify-between mb-10">
-          {steps.map((step, i) => (
-            <div key={step} className="flex items-center">
-              <div className="flex flex-col items-center">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-body transition-all ${
-                    i < currentStep
-                      ? "bg-primary text-primary-foreground"
-                      : i === currentStep
-                      ? "bg-foreground text-background"
-                      : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {i < currentStep ? <Check size={14} /> : i + 1}
+        {/* Step indicator */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
+          <div className="flex items-center justify-between mb-10">
+            {steps.map((step, i) => (
+              <div key={step} className="flex items-center">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-body transition-all ${
+                      i < currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : i === currentStep
+                        ? "bg-foreground text-background"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {i < currentStep ? <Check size={12} /> : i + 1}
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] font-body uppercase tracking-wider mt-2 text-muted-foreground hidden sm:block">
+                    {step}
+                  </span>
                 </div>
-                <span className="text-[10px] font-body uppercase tracking-wider mt-2 text-muted-foreground hidden sm:block">
-                  {step}
-                </span>
+                {i < steps.length - 1 && (
+                  <div className={`w-6 sm:w-16 h-px mx-1 sm:mx-2 ${i < currentStep ? "bg-primary" : "bg-border"}`} />
+                )}
               </div>
-              {i < steps.length - 1 && (
-                <div className={`w-8 sm:w-16 h-px mx-1 sm:mx-2 ${i < currentStep ? "bg-primary" : "bg-border"}`} />
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
         {renderStep()}
       </div>

@@ -85,7 +85,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Main Heading */}
           <motion.h1
-            className="font-display text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-6 tracking-tight"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-6 tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -96,7 +96,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Description */}
           <motion.p
-            className="font-body text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
+            className="font-body text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -124,9 +124,10 @@ const HeroSection = ({ content }: Props) => {
                 <button
                   type="submit"
                   disabled={searching}
-                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-sm font-medium px-6 py-4 transition-colors shrink-0"
+                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-xs sm:text-sm font-medium px-4 sm:px-6 py-4 transition-colors shrink-0"
                 >
-                  {searching ? "..." : "Rechercher"}
+                  <span className="hidden sm:inline">{searching ? "..." : "Rechercher"}</span>
+                  <span className="sm:hidden">OK</span>
                 </button>
               </div>
 
@@ -186,43 +187,43 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Info Row */}
           <motion.div
-            className="flex flex-wrap gap-6 mb-12"
+            className="flex flex-wrap gap-x-6 gap-y-3 mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.85 }}
           >
             <div className="flex items-center gap-2 text-white/60">
-              <MapPin size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">128 Rue de la Beauté, Paris</span>
+              <MapPin size={14} className="text-[#a8d5a2] shrink-0" />
+              <span className="font-body text-xs sm:text-sm">128 Rue de la Beauté, Paris</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
-              <Clock size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">Lun–Ven: 9h00 – 20h00</span>
+              <Clock size={14} className="text-[#a8d5a2] shrink-0" />
+              <span className="font-body text-xs sm:text-sm">Lun–Ven: 9h00 – 20h00</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
-              <Phone size={14} className="text-[#a8d5a2]" />
-              <span className="font-body text-sm">+33 1 23 45 67 89</span>
+              <Phone size={14} className="text-[#a8d5a2] shrink-0" />
+              <span className="font-body text-xs sm:text-sm">+33 1 23 45 67 89</span>
             </div>
           </motion.div>
 
           {/* Stats */}
           <motion.div
-            className="flex gap-10 pt-8 border-t border-white/10"
+            className="flex flex-wrap gap-x-8 gap-y-4 sm:gap-10 pt-8 border-t border-white/10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.9 }}
           >
             <div>
-              <p className="font-display text-4xl text-white font-bold">100+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Soins Spa</p>
+              <p className="font-display text-3xl sm:text-4xl text-white font-bold">100+</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Soins Spa</p>
             </div>
             <div>
-              <p className="font-display text-4xl text-white font-bold">40+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Thérapeutes Experts</p>
+              <p className="font-display text-3xl sm:text-4xl text-white font-bold">40+</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Thérapeutes Experts</p>
             </div>
             <div>
-              <p className="font-display text-4xl text-white font-bold">25+</p>
-              <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">Années d'Expérience</p>
+              <p className="font-display text-3xl sm:text-4xl text-white font-bold">25+</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Années d'Expérience</p>
             </div>
           </motion.div>
         </div>

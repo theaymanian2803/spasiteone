@@ -81,14 +81,14 @@ const Footer = ({ content }: Props) => {
             <p className="font-body text-sm opacity-70 leading-relaxed mb-4">
               Inscrivez-vous pour des offres exclusives, des conseils beauté et des invitations à des événements.
             </p>
-            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2 min-w-0">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Votre email"
                 required
-                className="flex-1 bg-background/10 border border-background/20 rounded-sm px-3 py-2 text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors font-body"
+                className="flex-1 min-w-0 bg-background/10 border border-background/20 rounded-sm px-3 py-2 text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors font-body"
               />
               <Button type="submit" variant="hero" size="icon" className="shrink-0 h-9 w-9">
                 <Send size={14} />
@@ -98,8 +98,8 @@ const Footer = ({ content }: Props) => {
         </div>
 
         <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs opacity-50 font-body">© 2026 Lumière Salon de Beauté. Tous droits réservés.</p>
-          <div className="flex gap-6 text-xs opacity-50 font-body">
+          <p className="text-xs opacity-50 font-body text-center md:text-left">© 2026 Lumière Salon de Beauté. Tous droits réservés.</p>
+          <div className="flex gap-4 sm:gap-6 text-xs opacity-50 font-body">
             <a href="#" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
             <a href="#" className="hover:opacity-100 transition-opacity">Conditions d'Utilisation</a>
           </div>

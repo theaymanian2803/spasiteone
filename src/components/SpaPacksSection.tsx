@@ -70,10 +70,10 @@ const SpaPacksSection = () => {
           transition={{ duration: 0.7 }}
         >
           <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">Nos Forfaits</p>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground mb-6">
             Menu Spa &<span className="italic"> Tarifs</span>
           </h2>
-          <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="font-body text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Découvrez nos {totalServices} soins spa sélectionnés pour votre relaxation et régénération ultimes.
           </p>
         </motion.div>

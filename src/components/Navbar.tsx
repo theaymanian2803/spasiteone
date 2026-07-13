@@ -38,7 +38,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/40">
-      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 flex items-center justify-between h-16 sm:h-20">
         {/* Brand */}
         <Link to="/" className="flex items-center group">
           <img
@@ -161,7 +161,7 @@ const Navbar = () => {
             transition={{ duration: 0.25 }}
             className="md:hidden bg-background border-b border-border/40 overflow-hidden"
           >
-            <div className="px-6 pb-6 pt-3">
+            <div className="px-4 sm:px-6 pb-6 pt-3">
               {sectionLinks.map((link) => (
                 <a
                   key={link.label}

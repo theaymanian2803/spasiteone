@@ -169,16 +169,16 @@ const MyAppointments = () => {
       <Navbar />
 
       <div className="bg-foreground text-background py-8">
-        <div className="max-w-3xl mx-auto px-6">
-          <h1 className="font-display text-3xl">Mes <span className="italic">Rendez-vous</span></h1>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h1 className="font-display text-2xl sm:text-3xl">Mes <span className="italic">Rendez-vous</span></h1>
           <p className="font-body text-sm text-background/60 mt-1">
             {isLoggedUser ? "Vos réservations sont chargées automatiquement" : "Recherchez vos réservations par email"}
           </p>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-10 flex-1 w-full">
-        <div className="flex items-center justify-between mb-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-8">
           <Button variant="elegant" size="sm" asChild>
             <Link to="/"><ArrowLeft size={14} className="mr-2" />Retour à l'Accueil</Link>
           </Button>
@@ -189,7 +189,7 @@ const MyAppointments = () => {
 
         {/* Email lookup — only for guests */}
         {!isLoggedUser && (
-          <form onSubmit={handleSearch} className="flex gap-3 mb-8">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 mb-8">
             <div className="relative flex-1">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input

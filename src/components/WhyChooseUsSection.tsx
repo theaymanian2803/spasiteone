@@ -37,7 +37,7 @@ const WhyChooseUsSection = ({ content }: Props) => {
             transition={{ duration: 0.8 }}
           >
             <p className="font-body uppercase tracking-[0.3em] text-sm text-primary mb-4">{content.subtitle}</p>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6 leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground mb-6 leading-tight">
               {content.title}<span className="italic">{content.title_italic}</span>
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-8">

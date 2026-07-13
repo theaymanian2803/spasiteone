@@ -29,11 +29,11 @@ const LoginPage = () => {
     "w-full bg-background border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors";
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-6">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 sm:px-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <a href="/" className="font-display text-2xl italic text-foreground">Lumière</a>
-          <h1 className="font-display text-3xl mt-4">Bon Retour</h1>
+          <h1 className="font-display text-2xl sm:text-3xl mt-4">Bon Retour</h1>
           <p className="font-body text-sm text-muted-foreground mt-2">
             Connectez-vous pour accéder à votre espace
           </p>

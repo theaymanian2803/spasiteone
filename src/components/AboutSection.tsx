@@ -30,7 +30,7 @@ const AboutSection = ({ content }: Props) => {
               </span>
             </div>
 
-            <h2 className="font-display text-4xl md:text-5xl lg:text-[3.2rem] text-foreground mb-6 leading-[1.15] font-bold tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] text-foreground mb-6 leading-[1.15] font-bold tracking-tight">
               {content.title}<span className="italic">{content.title_italic}</span>
             </h2>
 
@@ -86,14 +86,14 @@ const AboutSection = ({ content }: Props) => {
 
           {/* Right Images - Overlapping Layout */}
           <motion.div
-            className="relative h-[520px] lg:h-[560px]"
+            className="relative h-[400px] sm:h-[480px] lg:h-[560px] overflow-hidden"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7 }}
           >
             {/* Main Large Circle Image */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[340px] h-[420px] rounded-full overflow-hidden shadow-lg z-10">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[260px] sm:w-[300px] lg:w-[340px] h-[320px] sm:h-[380px] lg:h-[420px] rounded-full overflow-hidden shadow-lg z-10">
               <img
                 src={mainImg}
                 alt="Spa treatment"
@@ -103,19 +103,19 @@ const AboutSection = ({ content }: Props) => {
             </div>
 
             {/* Small Rectangular Image - overlaps top-right of main circle */}
-            <div className="absolute top-12 right-0 w-[200px] h-[160px] rounded-2xl overflow-hidden shadow-xl z-20 border-4 border-background">
+            <div className="absolute top-8 sm:top-12 right-0 w-[140px] sm:w-[170px] lg:w-[200px] h-[110px] sm:h-[130px] lg:h-[160px] rounded-2xl overflow-hidden shadow-xl z-20 border-4 border-background">
               <img
                 src={content.image2_url}
                 alt="Spa treatment detail"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-[#4a6741] text-white text-center py-2 px-3">
-                <p className="font-body text-[11px] font-medium">Appelez-nous: +33 1 23 45 67 89</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-[#4a6741] text-white text-center py-1.5 sm:py-2 px-2 sm:px-3">
+                <p className="font-body text-[9px] sm:text-[11px] font-medium">Appelez-nous: +33 1 23 45 67 89</p>
               </div>
             </div>
 
             {/* Small Circular Image - overlaps bottom-left of main circle */}
-            <div className="absolute bottom-4 left-4 w-[160px] h-[160px] rounded-full overflow-hidden shadow-xl z-20 border-4 border-background">
+            <div className="absolute bottom-4 left-4 w-[110px] sm:w-[130px] lg:w-[160px] h-[110px] sm:h-[130px] lg:h-[160px] rounded-full overflow-hidden shadow-xl z-20 border-4 border-background">
               <img
                 src={content.image3_url}
                 alt="Relaxation"
@@ -125,7 +125,7 @@ const AboutSection = ({ content }: Props) => {
 
             {/* Decorative Leaf SVG - bottom right */}
             <svg
-              className="absolute bottom-0 right-0 w-28 h-28 text-[#4a6741]/20 z-0"
+              className="absolute bottom-0 right-0 w-20 sm:w-24 lg:w-28 h-20 sm:h-24 lg:h-28 text-[#4a6741]/20 z-0"
               viewBox="0 0 120 120"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
