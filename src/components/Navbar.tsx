@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { motion, AnimatePresence } from "framer-motion";
 import ServicesMegaMenu from "./navbar/ServicesMegaMenu";
+import MobileServicesMenu from "./navbar/MobileServicesMenu";
 
 const sectionLinks = [
   { label: "Accueil", href: "/" },
@@ -180,6 +181,8 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+
+              <MobileServicesMenu onNavigate={() => setMobileOpen(false)} />
 
               <Button variant="hero" size="sm" className="w-full mt-4" asChild>
                 <Link to="/book" onClick={() => setMobileOpen(false)}>Réserver</Link>
