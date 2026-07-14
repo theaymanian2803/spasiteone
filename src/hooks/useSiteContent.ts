@@ -118,6 +118,8 @@ export interface ContactContent {
   phone: string;
   phone2: string;
   email: string;
+  address: string;
+  hours: string;
   image_url: string;
 }
 
@@ -324,9 +326,11 @@ export const defaultSiteContent: SiteContent = {
     title: "Détendez-vous & ",
     title_italic: "Ressourcez-vous",
     description: "Nos thérapeutes professionnels offrent des soins personnalisés qui vous aident à vous détendre, réduire le stress et rétablir l'équilibre de votre esprit et de votre corps.",
-    phone: "+33 1 23 45 67 89",
-    phone2: "+33 1 23 45 67 90",
-    email: "info@lumiere-salon.com",
+    phone: "0728729792",
+    phone2: "",
+    email: "contact@spadetente.com",
+    address: "31.6393154, -8.0220954, Maroc",
+    hours: "Tous les jours : 11h00 - 23h00",
     image_url: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&h=400&fit=crop",
   },
   gallery: {
@@ -342,10 +346,10 @@ export const defaultSiteContent: SiteContent = {
   },
   footer: {
     brand_description: "Là où l'élégance rencontre l'expertise. Un sanctuaire de beauté créé pour la femme moderne.",
-    hours: ["Tous les jours : 11h00 – 23h00"],
-    address: "Maroc",
+    hours: ["Tous les jours : 11h00 - 23h00"],
+    address: "31.6393154, -8.0220954, Maroc",
     phone: "0728729792",
-    email: "bonjour@lumiere-salon.com",
+    email: "contact@spadetente.com",
     instagram: "#",
     facebook: "#",
     twitter: "#",
@@ -359,6 +363,20 @@ export const useSiteContent = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
+        // One-time migration: fix stale contact/footer values seeded before the real info was known.
+        const fixRow = async (key: string, overrides: Record<string, any>) => {
+          const row = await turso.execute("SELECT content FROM site_content WHERE section_key = ?", [key]);
+          if (row.rows.length === 0) return;
+          const parsed = JSON.parse((row.rows[0] as { content: string }).content);
+        const updated = { ...parsed, ...overrides };
+          await turso.execute(
+            "UPDATE site_content SET content = ?, updated_at = ? WHERE section_key = ?",
+            [JSON.stringify(updated), new Date().toISOString(), key]
+          );
+        };
+        await fixRow("contact", { phone: "0728729792", email: "contact@spadetente.com", address: "31.6393154, -8.0220954, Maroc", hours: "Tous les jours : 11h00 - 23h00" });
+        await fixRow("footer", { phone: "0728729792", email: "contact@spadetente.com", address: "31.6393154, -8.0220954, Maroc", hours: ["Tous les jours : 11h00 - 23h00"] });
+
         const result = await turso.execute("SELECT section_key, content FROM site_content");
         const data = result.rows as { section_key: string; content: string }[];
         if (data && data.length > 0) {

@@ -19,7 +19,7 @@ interface TodayAppointment {
   status: string;
 }
 
-const CHART_COLORS = ["hsl(15, 30%, 65%)", "hsl(15, 35%, 50%)", "hsl(15, 25%, 80%)", "hsl(0, 0%, 30%)"];
+const CHART_COLORS = ["hsl(140, 25%, 45%)", "hsl(140, 30%, 35%)", "hsl(140, 20%, 60%)", "hsl(120, 10%, 30%)"];
 
 const AdminOverview = () => {
   const [kpis, setKpis] = useState<KPI | null>(null);
@@ -131,11 +131,11 @@ const AdminOverview = () => {
           <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Revenus (7 Derniers Jours)</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={revenueData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(30, 15%, 88%)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(45, 15%, 88%)" />
               <XAxis dataKey="day" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="revenue" fill="hsl(15, 30%, 65%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="revenue" fill="hsl(140, 25%, 45%)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -180,9 +180,9 @@ const AdminOverview = () => {
                     <td className="py-3 px-2 font-body text-sm">{apt.service_name}</td>
                     <td className="py-3 px-2">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-body capitalize ${
-                        apt.status === "completed" ? "bg-green-100 text-green-800" :
-                        apt.status === "pending" ? "bg-yellow-100 text-yellow-800" :
-                        apt.status === "no-show" ? "bg-red-100 text-red-800" :
+                        apt.status === "completed" ? "bg-primary/15 text-primary" :
+                        apt.status === "pending" ? "bg-accent/20 text-accent-foreground" :
+                        apt.status === "no-show" ? "bg-destructive/15 text-destructive" :
                         "bg-muted text-muted-foreground"
                       }`}>
                         {apt.status}

@@ -508,6 +508,14 @@ const AdminContent = () => {
                   <Label>Email</Label>
                   <Input value={draft.contact.email} onChange={(e) => updateContact("email", e.target.value)} />
                 </div>
+                <div className="space-y-2">
+                  <Label>Adresse</Label>
+                  <Input value={draft.contact.address} onChange={(e) => updateContact("address", e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Horaires</Label>
+                  <Input value={draft.contact.hours} onChange={(e) => updateContact("hours", e.target.value)} />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label>Image</Label>

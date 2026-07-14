@@ -98,7 +98,7 @@ const Footer = ({ content }: Props) => {
         </div>
 
         <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs opacity-50 font-body text-center md:text-left">© 2026 Lumière Salon de Beauté. Tous droits réservés.</p>
+          <p className="text-xs opacity-50 font-body text-center md:text-left">© 2026 Pause Spa Détente. Tous droits réservés.</p>
           <div className="flex gap-4 sm:gap-6 text-xs opacity-50 font-body">
             <a href="#" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
             <a href="#" className="hover:opacity-100 transition-opacity">Conditions d'Utilisation</a>

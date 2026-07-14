@@ -63,8 +63,10 @@ const ContactSection = ({ content }: Props) => {
                 </div>
                 <div>
                   <h4 className="font-display text-lg mb-1">Appelez-nous</h4>
-                  <p className="font-body text-sm text-muted-foreground mb-1">Lun–Ven: 9h00 – 20h00</p>
-                  <p className="font-body text-sm text-primary font-medium">{content.phone}</p>
+                  <p className="font-body text-sm text-muted-foreground mb-1">Tous les jours : 11h00 - 23h00</p>
+                  <a href={`tel:${content.phone.replace(/\s/g, "")}`} className="font-body text-sm text-primary font-medium hover:underline">
+                    {content.phone}
+                  </a>
                 </div>
               </div>
             </div>
@@ -77,7 +79,9 @@ const ContactSection = ({ content }: Props) => {
                 <div>
                   <h4 className="font-display text-lg mb-1">Envoyez-nous un Email</h4>
                   <p className="font-body text-sm text-muted-foreground mb-1">Nous vous répondrons sous 24h</p>
-                  <p className="font-body text-sm text-primary font-medium">{content.email}</p>
+                  <a href={`mailto:${content.email}`} className="font-body text-sm text-primary font-medium hover:underline">
+                    {content.email}
+                  </a>
                 </div>
               </div>
             </div>
@@ -90,7 +94,14 @@ const ContactSection = ({ content }: Props) => {
                 <div>
                   <h4 className="font-display text-lg mb-1">Rendez-nous Visite</h4>
                   <p className="font-body text-sm text-muted-foreground mb-1">Venez vous détendre avec nous</p>
-                  <p className="font-body text-sm text-primary font-medium">128 Rue de la Beauté, Paris</p>
+                  <a
+                    href="https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-primary font-medium hover:underline"
+                  >
+                    {content.address}
+                  </a>
                 </div>
               </div>
             </div>
@@ -103,7 +114,7 @@ const ContactSection = ({ content }: Props) => {
                 <div>
                   <h4 className="font-display text-lg mb-1">Horaires</h4>
                   <p className="font-body text-sm text-muted-foreground mb-1">Réservez votre rendez-vous</p>
-                  <p className="font-body text-sm text-primary font-medium">Lun–Ven: 9h00 – 20h00</p>
+                  <p className="font-body text-sm text-primary font-medium">{content.hours}</p>
                 </div>
               </div>
             </div>

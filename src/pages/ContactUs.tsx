@@ -9,26 +9,26 @@ import { toast } from "sonner";
 const contactInfo = [
   {
     icon: Phone,
-    label: "Téléphone",
-    value: "+33 1 42 36 53 00",
-    href: "tel:+33142365300",
+    label: "Appelez-nous",
+    value: "0728729792",
+    href: "tel:0728729792",
   },
   {
     icon: Mail,
-    label: "Email",
-    value: "bonjour@lumiere-salon.fr",
-    href: "mailto:bonjour@lumiere-salon.fr",
+    label: "Envoyez-nous un Email",
+    value: "info@spadetente.com",
+    href: "mailto:info@spadetente.com",
   },
   {
     icon: MapPin,
-    label: "Adresse",
+    label: "Rendez-nous Visite",
     value: "31.6393154, -8.0220954\nMaroc",
     href: "https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr",
   },
   {
     icon: Clock,
     label: "Horaires",
-    value: "Lun–Ven : 9h – 19h\nSam–Dim : 10h – 17h",
+    value: "Tous les jours : 11h00 - 23h00",
     href: null,
   },
 ];

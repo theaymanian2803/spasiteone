@@ -17,7 +17,7 @@ import StepDetails from "@/components/booking/StepDetails";
 import StepReview from "@/components/booking/StepReview";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Check, User, LogIn } from "lucide-react";
+import { Check, User, LogIn, Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const fallbackCategories = ["Massages", "Hammams", "Packs"];
 
@@ -102,74 +102,13 @@ const BookingPage = () => {
     }
     setSubmitting(true);
 
-    const dateStr = bookingData.date.toISOString().split("T")[0];
-
     const slotStartMin = (() => {
       const [h, m] = bookingData.time!.split(":").map(Number);
       return h * 60 + m;
     })();
     const duration = totalDuration(bookingData.services);
     const slotEndMin = slotStartMin + duration;
-
-    // Re-check for conflicts even though slots were disabled in the date step,
-    // since another client may have booked while the user was filling details.
-    let conflict = false;
-    try {
-      const existing = await turso.execute(
-        "SELECT start_time, end_time, status FROM appointments WHERE appointment_date = ?",
-        [dateStr]
-      );
-      const existingAppts = (
-        existing.rows as { start_time: string; end_time: string; status: string }[]
-      ).filter((a) => a.status !== "cancelled");
-      conflict = existingAppts.some((a) => {
-        const aStart = (() => { const [h, m] = a.start_time.split(":").map(Number); return h * 60 + m; })();
-        const aEnd = (() => { const [h, m] = a.end_time.split(":").map(Number); return h * 60 + m; })();
-        return slotStartMin < aEnd && slotEndMin > aStart;
-      });
-    } catch {
-      // DB unavailable (offline/test): proceed with WhatsApp confirmation only.
-    }
-
-    if (conflict) {
-      setSubmitting(false);
-      toast.error("Ce créneau vient d'être réservé. Veuillez choisir un autre horaire.");
-      return;
-    }
-
     const endTime = minutesToTime(slotEndMin);
-    const clientId = user?.id && user.id !== "admin" ? user.id : null;
-
-    // Persist one appointment row per selected service so the salon keeps a
-    // record of every service in this combined booking. Sub-services are
-    // scheduled back-to-back starting at the selected start time.
-    try {
-      let cursorMin = slotStartMin;
-      for (const svc of bookingData.services) {
-        const sStart = minutesToTime(cursorMin);
-        const sEnd = minutesToTime(cursorMin + svc.duration_minutes);
-        await turso.execute(
-          `INSERT INTO appointments (client_id, service_id, appointment_date, start_time, end_time, client_name, client_email, client_phone, special_requests, total_price, status)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            clientId,
-            svc.id,
-            dateStr,
-            sStart,
-            sEnd,
-            `${bookingData.clientFirstName} ${bookingData.clientLastName}`,
-            bookingData.clientEmail,
-            bookingData.clientPhone,
-            bookingData.specialRequests,
-            svc.price,
-            "pending",
-          ]
-        );
-        cursorMin += svc.duration_minutes;
-      }
-    } catch {
-      // DB may be unavailable in test mode; we still forward to WhatsApp.
-    }
 
     const dateLabel = bookingData.date.toLocaleDateString("fr-FR", {
       weekday: "long", month: "long", day: "numeric", year: "numeric",
@@ -335,6 +274,49 @@ const BookingPage = () => {
 
         {renderStep()}
       </div>
+
+      {/* Contact info */}
+      <section className="bg-secondary/30 py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <h2 className="font-display text-2xl sm:text-3xl">
+              Une <span className="italic">Question</span> ?
+            </h2>
+            <p className="font-body text-sm text-muted-foreground mt-3 max-w-xl mx-auto">
+              Contactez-nous directement, nous sommes là pour vous aider avant ou après votre réservation.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Phone, label: "Appelez-nous", value: "0728729792", href: "tel:0728729792" },
+              { icon: Mail, label: "Envoyez-nous un Email", value: "contact@spadetente.com", href: "mailto:contact@spadetente.com" },
+              { icon: MapPin, label: "Rendez-nous Visite", value: "31.6393154, -8.0220954\nMaroc", href: "https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr" },
+              { icon: Clock, label: "Horaires", value: "Tous les jours : 11h00 - 23h00", href: null },
+            ].map((item) => (
+              <div key={item.label} className="p-6 bg-card border border-border rounded-sm text-center">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <item.icon size={20} className="text-primary" />
+                </div>
+                <h3 className="font-body uppercase tracking-[0.15em] text-sm text-foreground mb-2">
+                  {item.label}
+                </h3>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="font-body text-sm text-muted-foreground hover:text-primary transition-colors whitespace-pre-line"
+                  >
+                    {item.value}
+                  </a>
+                ) : (
+                  <p className="font-body text-sm text-muted-foreground whitespace-pre-line">{item.value}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
