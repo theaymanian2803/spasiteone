@@ -1,88 +1,88 @@
-import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Sparkles, Search, Clock, MapPin, Phone, X, Loader2 } from "lucide-react";
-import { HeroContent } from "@/hooks/useSiteContent";
-import { turso, isTursoConfigured } from "@/lib/db";
+import { Button } from '@/components/ui/button'
+import { HeroContent } from '@/hooks/useSiteContent'
+import { isTursoConfigured, turso } from '@/lib/db'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowRight, Clock, Loader2, MapPin, Phone, Search, Sparkles, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface Props {
-  content: HeroContent;
+  content: HeroContent
 }
 
 const HeroSection = ({ content }: Props) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [searching, setSearching] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const navigate = useNavigate();
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const resultsRef = useRef<HTMLDivElement>(null);
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<any[]>([])
+  const [searching, setSearching] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+  const navigate = useNavigate()
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
 
   // Live search with debounce as you type
   useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (debounceRef.current) clearTimeout(debounceRef.current)
 
     if (!searchQuery.trim()) {
-      setSearchResults([]);
-      setShowResults(false);
-      return;
+      setSearchResults([])
+      setShowResults(false)
+      return
     }
 
-    setSearching(true);
+    setSearching(true)
     debounceRef.current = setTimeout(async () => {
       try {
         if (isTursoConfigured()) {
           const result = await turso.execute(
-            "SELECT id, name, description, category, price, duration_minutes FROM services WHERE active = 1 AND (name LIKE ? OR description LIKE ? OR category LIKE ?) LIMIT 6",
+            'SELECT id, name, description, category, price, duration_minutes FROM services WHERE active = 1 AND (name LIKE ? OR description LIKE ? OR category LIKE ?) LIMIT 6',
             [`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`]
-          );
-          setSearchResults(result.rows as any[]);
+          )
+          setSearchResults(result.rows as any[])
         } else {
-          setSearchResults([]);
+          setSearchResults([])
         }
       } catch {
-        setSearchResults([]);
+        setSearchResults([])
       }
-      setSearching(false);
-      setShowResults(true);
-    }, 300);
+      setSearching(false)
+      setShowResults(true)
+    }, 300)
 
     return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [searchQuery]);
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+    }
+  }, [searchQuery])
 
   // Close results when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (resultsRef.current && !resultsRef.current.contains(e.target as Node)) {
-        setShowResults(false);
+        setShowResults(false)
       }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
 
   const goToService = (serviceId: string) => {
-    setSearchQuery("");
-    setSearchResults([]);
-    setShowResults(false);
-    navigate(`/book?service=${serviceId}`);
-  };
+    setSearchQuery('')
+    setSearchResults([])
+    setShowResults(false)
+    navigate(`/book?service=${serviceId}`)
+  }
 
   const clearSearch = () => {
-    setSearchQuery("");
-    setSearchResults([]);
-    setShowResults(false);
-  };
+    setSearchQuery('')
+    setSearchResults([])
+    setShowResults(false)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (searchResults.length > 0) {
-      goToService(searchResults[0].id);
+      goToService(searchResults[0].id)
     }
-  };
+  }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
@@ -94,7 +94,7 @@ const HeroSection = ({ content }: Props) => {
           className="w-full h-full object-cover"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          transition={{ duration: 2, ease: 'easeOut' }}
         />
         {/* Dark gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
@@ -102,10 +102,17 @@ const HeroSection = ({ content }: Props) => {
       </div>
 
       {/* Decorative leaf elements */}
-      <svg className="absolute top-16 right-12 w-20 h-20 text-white/10 animate-pulse" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="absolute top-16 right-12 w-20 h-20 text-white/10 animate-pulse"
+        viewBox="0 0 24 24"
+        fill="currentColor">
         <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22L6.66,19.7C7.14,19.87,7.64,20,8,20C19,20,22,3,22,3C21,5,14,5.25,9,6.25C4,7.25,2,11.5,2,13.5C2,15.5,3.75,17.25,3.75,17.25C7,8,17,8,17,8Z" />
       </svg>
-      <svg className="absolute bottom-24 left-8 w-16 h-16 text-white/10 animate-pulse" style={{ animationDelay: '1s' }} viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="absolute bottom-24 left-8 w-16 h-16 text-white/10 animate-pulse"
+        style={{ animationDelay: '1s' }}
+        viewBox="0 0 24 24"
+        fill="currentColor">
         <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22L6.66,19.7C7.14,19.87,7.64,20,8,20C19,20,22,3,22,3C21,5,14,5.25,9,6.25C4,7.25,2,11.5,2,13.5C2,15.5,3.75,17.25,3.75,17.25C7,8,17,8,17,8Z" />
       </svg>
 
@@ -114,13 +121,12 @@ const HeroSection = ({ content }: Props) => {
         <div className="max-w-3xl">
           {/* Brand Badge */}
           <motion.div
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-8"
+            className="hidden md:block  items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+            transition={{ duration: 0.6, delay: 0.2 }}>
             <Sparkles size={14} className="text-[#a8d5a2]" />
-            <span className="font-body text-xs uppercase tracking-[0.25em] text-white/90 font-medium">
+            <span className="font-body text-xs uppercase tracking-[0.25em] text-green-300 font-medium">
               {content.subtitle}
             </span>
           </motion.div>
@@ -130,8 +136,7 @@ const HeroSection = ({ content }: Props) => {
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-6 tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
+            transition={{ duration: 0.8, delay: 0.3 }}>
             {content.title_line1}
             <span className="italic block text-[#a8d5a2]">{content.title_line2}</span>
           </motion.h1>
@@ -141,8 +146,7 @@ const HeroSection = ({ content }: Props) => {
             className="font-body text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
+            transition={{ duration: 0.6, delay: 0.5 }}>
             {content.description}
           </motion.p>
 
@@ -151,8 +155,7 @@ const HeroSection = ({ content }: Props) => {
             className="relative mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
+            transition={{ duration: 0.6, delay: 0.6 }}>
             <form onSubmit={handleSubmit} className="relative" ref={resultsRef}>
               <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden focus-within:border-[#a8d5a2]/50 transition-colors">
                 <Search size={20} className="text-white/50 ml-5 shrink-0" />
@@ -171,17 +174,15 @@ const HeroSection = ({ content }: Props) => {
                   <button
                     type="button"
                     onClick={clearSearch}
-                    className="text-white/40 hover:text-white/70 transition-colors mr-3 shrink-0"
-                  >
+                    className="text-white/40 hover:text-white/70 transition-colors mr-3 shrink-0">
                     <X size={18} />
                   </button>
                 )}
                 <button
                   type="submit"
                   disabled={searching}
-                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-xs sm:text-sm font-medium px-4 sm:px-6 py-4 transition-colors shrink-0"
-                >
-                  <span className="hidden sm:inline">{searching ? "..." : "Rechercher"}</span>
+                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-xs sm:text-sm font-medium px-4 sm:px-6 py-4 transition-colors shrink-0">
+                  <span className="hidden sm:inline">{searching ? '...' : 'Rechercher'}</span>
                   <span className="sm:hidden">OK</span>
                 </button>
               </div>
@@ -194,26 +195,32 @@ const HeroSection = ({ content }: Props) => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-50"
-                  >
+                    className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-50">
                     {searchResults.length > 0 ? (
                       <>
                         {searchResults.map((service: any) => (
                           <button
                             key={service.id}
                             onClick={() => goToService(service.id)}
-                            className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#4a6741]/10 transition-colors text-left border-b border-gray-100 last:border-0"
-                          >
+                            className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#4a6741]/10 transition-colors text-left border-b border-gray-100 last:border-0">
                             <div className="min-w-0">
-                              <p className="font-display text-base text-[#1a1a1a] truncate">{service.name}</p>
+                              <p className="font-display text-base text-[#1a1a1a] truncate">
+                                {service.name}
+                              </p>
                               <p className="font-body text-xs text-gray-500 mt-0.5 truncate">
                                 {service.category}
-                                {service.duration_minutes ? ` · ${service.duration_minutes} min` : ""}
+                                {service.duration_minutes
+                                  ? ` · ${service.duration_minutes} min`
+                                  : ''}
                               </p>
                             </div>
                             <div className="text-right shrink-0 ml-4">
-                              <p className="font-display text-lg text-[#4a6741] font-bold">{service.price} DH</p>
-                              <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">Réserver</p>
+                              <p className="font-display text-lg text-[#4a6741] font-bold">
+                                {service.price} DH
+                              </p>
+                              <p className="font-body text-[10px] text-gray-400 uppercase tracking-wider">
+                                Réserver
+                              </p>
                             </div>
                           </button>
                         ))}
@@ -236,13 +243,11 @@ const HeroSection = ({ content }: Props) => {
             className="flex flex-col sm:flex-row gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
+            transition={{ duration: 0.6, delay: 0.7 }}>
             <Button
               asChild
               size="lg"
-              className="bg-[#4a6741] hover:bg-[#3d5636] text-white rounded-full px-8 group shadow-lg shadow-[#4a6741]/20"
-            >
+              className="bg-[#4a6741] hover:bg-[#3d5636] text-white rounded-full px-8 group shadow-lg shadow-[#4a6741]/20">
               <Link to="/book" className="flex items-center gap-2">
                 {content.cta_text}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -252,8 +257,7 @@ const HeroSection = ({ content }: Props) => {
               variant="outline"
               size="lg"
               className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full px-8 backdrop-blur-sm"
-              asChild
-            >
+              asChild>
               <Link to="/contact">
                 <Phone size={16} className="mr-2" />
                 Contactez-nous
@@ -266,8 +270,7 @@ const HeroSection = ({ content }: Props) => {
             className="flex flex-wrap gap-x-6 gap-y-3 mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.85 }}
-          >
+            transition={{ duration: 0.6, delay: 0.85 }}>
             <div className="flex items-center gap-2 text-white/60">
               <MapPin size={14} className="text-[#a8d5a2] shrink-0" />
               <span className="font-body text-xs sm:text-sm">128 Rue de la Beauté, Paris</span>
@@ -287,19 +290,24 @@ const HeroSection = ({ content }: Props) => {
             className="flex flex-wrap gap-x-8 gap-y-4 sm:gap-10 pt-8 border-t border-white/10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
+            transition={{ duration: 0.6, delay: 0.9 }}>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">100+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Soins Spa</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+                Soins Spa
+              </p>
             </div>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">40+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Thérapeutes Experts</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+                Thérapeutes Experts
+              </p>
             </div>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">25+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">Années d'Expérience</p>
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+                Années d'Expérience
+              </p>
             </div>
           </motion.div>
         </div>
@@ -309,14 +317,15 @@ const HeroSection = ({ content }: Props) => {
           className="hidden lg:block absolute right-12 top-1/3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
+          transition={{ duration: 0.6, delay: 1 }}>
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 rounded-full bg-[#4a6741]/30 flex items-center justify-center">
               <Sparkles size={22} className="text-[#a8d5a2]" />
             </div>
             <div>
-              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Note Clients</p>
+              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">
+                Note Clients
+              </p>
               <p className="font-display text-2xl text-white font-bold">4.9/5</p>
               <div className="flex gap-0.5 mt-0.5">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -334,18 +343,21 @@ const HeroSection = ({ content }: Props) => {
           className="hidden lg:block absolute right-12 bottom-1/3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-        >
+          transition={{ duration: 0.6, delay: 1.2 }}>
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
-              {["😊", "😌", "🧖"].map((emoji, i) => (
-                <div key={i} className="w-9 h-9 rounded-full bg-white/20 border-2 border-white/10 flex items-center justify-center text-sm">
+              {['😊', '😌', '🧖'].map((emoji, i) => (
+                <div
+                  key={i}
+                  className="w-9 h-9 rounded-full bg-white/20 border-2 border-white/10 flex items-center justify-center text-sm">
                   {emoji}
                 </div>
               ))}
             </div>
             <div>
-              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">Clients Satisfaits</p>
+              <p className="font-body text-[10px] text-white/50 uppercase tracking-wider">
+                Clients Satisfaits
+              </p>
               <p className="font-display text-2xl text-white font-bold">10K+</p>
             </div>
           </div>
@@ -357,9 +369,10 @@ const HeroSection = ({ content }: Props) => {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.5 }}
-      >
-        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/40">Défiler</span>
+        transition={{ duration: 0.6, delay: 1.5 }}>
+        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/40">
+          Défiler
+        </span>
         <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
           <motion.div
             className="w-1 h-2 bg-white/40 rounded-full"
@@ -369,7 +382,7 @@ const HeroSection = ({ content }: Props) => {
         </div>
       </motion.div>
     </section>
-  );
-};
+  )
+}
 
-export default HeroSection;
+export default HeroSection
