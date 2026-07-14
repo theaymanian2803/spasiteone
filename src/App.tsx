@@ -21,6 +21,7 @@ import AdminSettings from './pages/admin/AdminSettings'
 import AdminContent from './pages/admin/AdminContent'
 import NotFound from './pages/NotFound'
 import WhatsAppButton from './components/WhatsAppButton'
+import ScrollToTop from './components/ScrollToTop'
 
 const queryClient = new QueryClient()
 
@@ -41,6 +42,7 @@ const App = () => {
               v7_startTransition: true,
               v7_relativeSplatPath: true,
             }}>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/book" element={<BookingPage />} />

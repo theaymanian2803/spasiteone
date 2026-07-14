@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 const WhatsAppButton = () => {
   const phoneNumber = "212728729792";
   const message = encodeURIComponent(
-    "Bonjour Pause Detente Spa ! Bienvenue chez Pause Detente Spa, votre sanctuaire de détente et de bien-être. Comment pouvons-nous vous aider aujourd'hui ?"
+    "Bienvenue chez Pause Spa Détente, comment pouvons-nous vous aider ?"
   );
   const href = `https://wa.me/${phoneNumber}?text=${message}`;
 
