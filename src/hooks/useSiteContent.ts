@@ -328,7 +328,7 @@ export const defaultSiteContent: SiteContent = {
     description: "Nos thérapeutes professionnels offrent des soins personnalisés qui vous aident à vous détendre, réduire le stress et rétablir l'équilibre de votre esprit et de votre corps.",
     phone: "0728729792",
     phone2: "",
-    email: "contact@spadetente.com",
+    email: "contact@spapausemarrakech.com",
     address: "31.6393154, -8.0220954, Maroc",
     hours: "Tous les jours : 11h00 - 23h00",
     image_url: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&h=400&fit=crop",
@@ -349,7 +349,7 @@ export const defaultSiteContent: SiteContent = {
     hours: ["Tous les jours : 11h00 - 23h00"],
     address: "31.6393154, -8.0220954, Maroc",
     phone: "0728729792",
-    email: "contact@spadetente.com",
+    email: "contact@spapausemarrakech.com",
     instagram: "#",
     facebook: "#",
     twitter: "#",
@@ -374,8 +374,8 @@ export const useSiteContent = () => {
             [JSON.stringify(updated), new Date().toISOString(), key]
           );
         };
-        await fixRow("contact", { phone: "0728729792", email: "contact@spadetente.com", address: "31.6393154, -8.0220954, Maroc", hours: "Tous les jours : 11h00 - 23h00" });
-        await fixRow("footer", { phone: "0728729792", email: "contact@spadetente.com", address: "31.6393154, -8.0220954, Maroc", hours: ["Tous les jours : 11h00 - 23h00"] });
+        await fixRow("contact", { phone: "0728729792", email: "contact@spapausemarrakech.com", address: "31.6393154, -8.0220954, Maroc", hours: "Tous les jours : 11h00 - 23h00" });
+        await fixRow("footer", { phone: "0728729792", email: "contact@spapausemarrakech.com", address: "31.6393154, -8.0220954, Maroc", hours: ["Tous les jours : 11h00 - 23h00"] });
 
         const result = await turso.execute("SELECT section_key, content FROM site_content");
         const data = result.rows as { section_key: string; content: string }[];

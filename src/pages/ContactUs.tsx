@@ -16,8 +16,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Envoyez-nous un Email",
-    value: "info@spadetente.com",
-    href: "mailto:info@spadetente.com",
+    value: "contact@spapausemarrakech.com",
+    href: "mailto:contact@spapausemarrakech.com",
   },
   {
     icon: MapPin,

@@ -289,7 +289,7 @@ const BookingPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Phone, label: "Appelez-nous", value: "0728729792", href: "tel:0728729792" },
-              { icon: Mail, label: "Envoyez-nous un Email", value: "contact@spadetente.com", href: "mailto:contact@spadetente.com" },
+              { icon: Mail, label: "Envoyez-nous un Email", value: "contact@spapausemarrakech.com", href: "mailto:contact@spapausemarrakech.com" },
               { icon: MapPin, label: "Rendez-nous Visite", value: "31.6393154, -8.0220954\nMaroc", href: "https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr" },
               { icon: Clock, label: "Horaires", value: "Tous les jours : 11h00 - 23h00", href: null },
             ].map((item) => (
