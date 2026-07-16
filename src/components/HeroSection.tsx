@@ -181,9 +181,8 @@ const HeroSection = ({ content }: Props) => {
                 <button
                   type="submit"
                   disabled={searching}
-                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white font-body text-xs sm:text-sm font-medium px-4 sm:px-6 py-4 transition-colors shrink-0">
-                  <span className="hidden sm:inline">{searching ? '...' : 'Rechercher'}</span>
-                  <span className="sm:hidden">OK</span>
+                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white p-2.5 sm:p-3 rounded-xl transition-colors shrink-0 flex items-center justify-center mr-1.5 sm:mr-2">
+                  {searching ? <Loader2 size={18} className="animate-spin" /> : <Search size={18} />}
                 </button>
               </div>
 
@@ -273,15 +272,15 @@ const HeroSection = ({ content }: Props) => {
             transition={{ duration: 0.6, delay: 0.85 }}>
             <div className="flex items-center gap-2 text-white/60">
               <MapPin size={14} className="text-[#a8d5a2] shrink-0" />
-              <span className="font-body text-xs sm:text-sm">128 Rue de la Beauté, Paris</span>
+              <span className="font-body text-xs sm:text-sm">guiliz mohammed 6</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Clock size={14} className="text-[#a8d5a2] shrink-0" />
-              <span className="font-body text-xs sm:text-sm">Lun–Ven: 9h00 – 20h00</span>
+              <span className="font-body text-xs sm:text-sm">Lun–Dim: 11h00 – 23h00</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Phone size={14} className="text-[#a8d5a2] shrink-0" />
-              <span className="font-body text-xs sm:text-sm">+33 1 23 45 67 89</span>
+              <span className="font-body text-xs sm:text-sm">+212 07 28 729 792 </span>
             </div>
           </motion.div>
 
@@ -292,13 +291,13 @@ const HeroSection = ({ content }: Props) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.9 }}>
             <div>
-              <p className="font-display text-3xl sm:text-4xl text-white font-bold">100+</p>
+              <p className="font-display text-3xl sm:text-4xl text-white font-bold">20+</p>
               <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
                 Soins Spa
               </p>
             </div>
             <div>
-              <p className="font-display text-3xl sm:text-4xl text-white font-bold">40+</p>
+              <p className="font-display text-3xl sm:text-4xl text-white font-bold">10+</p>
               <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
                 Thérapeutes Experts
               </p>
