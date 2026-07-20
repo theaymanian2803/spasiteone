@@ -250,19 +250,30 @@ const ContactUs = () => {
           </div>
         </section>
 
-        {/* Map Section */}
-        <section className="h-80 bg-muted relative">
-          <iframe
-            title="Localisation du Salon Lumière"
-            src="https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr&output=embed"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0"
-          />
+        {/* Map & Video Section */}
+        <section className="grid grid-cols-1 md:grid-cols-2">
+          <div className="h-80 bg-muted relative">
+            <iframe
+              title="Localisation du Salon Lumière"
+              src="https://www.google.com/maps?q=31.6393154,-8.0220954&z=17&hl=fr&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0"
+            />
+          </div>
+          <div className="h-80 bg-muted relative">
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src="https://pub-3fe2b2a234a04507951dc3d5646b7a33.r2.dev/Location.mp4"
+              controls
+              playsInline
+              preload="metadata"
+            />
+          </div>
         </section>
       </div>
 
