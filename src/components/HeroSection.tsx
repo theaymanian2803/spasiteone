@@ -103,29 +103,29 @@ const HeroSection = ({ content }: Props) => {
 
       {/* Decorative leaf elements */}
       <svg
-        className="absolute top-16 right-12 w-20 h-20 text-white/10 animate-pulse"
+        className="absolute top-24 right-12 w-20 h-20 text-white/10 animate-pulse pointer-events-none"
         viewBox="0 0 24 24"
         fill="currentColor">
         <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22L6.66,19.7C7.14,19.87,7.64,20,8,20C19,20,22,3,22,3C21,5,14,5.25,9,6.25C4,7.25,2,11.5,2,13.5C2,15.5,3.75,17.25,3.75,17.25C7,8,17,8,17,8Z" />
       </svg>
       <svg
-        className="absolute bottom-24 left-8 w-16 h-16 text-white/10 animate-pulse"
+        className="absolute bottom-24 left-8 w-16 h-16 text-white/10 animate-pulse pointer-events-none"
         style={{ animationDelay: '1s' }}
         viewBox="0 0 24 24"
         fill="currentColor">
         <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22L6.66,19.7C7.14,19.87,7.64,20,8,20C19,20,22,3,22,3C21,5,14,5.25,9,6.25C4,7.25,2,11.5,2,13.5C2,15.5,3.75,17.25,3.75,17.25C7,8,17,8,17,8Z" />
       </svg>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-20 w-full">
+      {/* Content — generous top padding clears the fixed navbar (64–80px). */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-24 pt-28 sm:pt-32 pb-24 w-full">
         <div className="max-w-3xl">
           {/* Brand Badge */}
           <motion.div
-            className="hidden md:block  items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-8"
+            className="hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}>
-            <Sparkles size={14} className="text-[#a8d5a2]" />
+            <Sparkles size={14} className="text-[#a8d5a2] shrink-0" />
             <span className="font-body text-xs uppercase tracking-[0.25em] text-green-300 font-medium">
               {content.subtitle}
             </span>
@@ -133,7 +133,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Main Heading */}
           <motion.h1
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-6 tracking-tight"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-8 tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}>
@@ -143,7 +143,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Description */}
           <motion.p
-            className="font-body text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
+            className="font-body text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mb-12 max-w-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}>
@@ -152,7 +152,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Search Bar */}
           <motion.div
-            className="relative mb-8"
+            className="relative mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}>
@@ -181,7 +181,7 @@ const HeroSection = ({ content }: Props) => {
                 <button
                   type="submit"
                   disabled={searching}
-                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white p-2.5 sm:p-3 rounded-xl transition-colors shrink-0 flex items-center justify-center mr-1.5 sm:mr-2">
+                  className="bg-[#4a6741] hover:bg-[#3d5636] text-white p-2.5 sm:p-3 rounded-xl transition-colors shrink-0 flex items-center justify-center mr-2 sm:mr-2.5">
                   {searching ? <Loader2 size={18} className="animate-spin" /> : <Search size={18} />}
                 </button>
               </div>
@@ -239,7 +239,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 mb-12"
+            className="flex flex-col sm:flex-row gap-4 mb-14"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}>
@@ -255,10 +255,10 @@ const HeroSection = ({ content }: Props) => {
             <Button
               variant="outline"
               size="lg"
-              className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full px-8 backdrop-blur-sm"
+              className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50 rounded-full px-8 backdrop-blur-sm"
               asChild>
               <Link to="/contact">
-                <Phone size={16} className="mr-2" />
+                <Phone size={16} className="mr-2 shrink-0" />
                 Contactez-nous
               </Link>
             </Button>
@@ -266,7 +266,7 @@ const HeroSection = ({ content }: Props) => {
 
           {/* Info Row */}
           <motion.div
-            className="flex flex-wrap gap-x-6 gap-y-3 mb-12"
+            className="flex flex-wrap gap-x-8 gap-y-4 mb-14"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.85 }}>
@@ -280,31 +280,31 @@ const HeroSection = ({ content }: Props) => {
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Phone size={14} className="text-[#a8d5a2] shrink-0" />
-              <span className="font-body text-xs sm:text-sm">+212 07 28 729 792 </span>
+              <span className="font-body text-xs sm:text-sm">+212 07 28 729 792</span>
             </div>
           </motion.div>
 
           {/* Stats */}
           <motion.div
-            className="flex flex-wrap gap-x-8 gap-y-4 sm:gap-10 pt-8 border-t border-white/10"
+            className="flex flex-wrap gap-x-8 gap-y-6 sm:gap-12 pt-10 border-t border-white/10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.9 }}>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">20+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-2">
                 Soins Spa
               </p>
             </div>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">10+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-2">
                 Thérapeutes Experts
               </p>
             </div>
             <div>
               <p className="font-display text-3xl sm:text-4xl text-white font-bold">25+</p>
-              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-1">
+              <p className="font-body text-[10px] sm:text-xs text-white/40 uppercase tracking-wider mt-2">
                 Années d'Expérience
               </p>
             </div>
@@ -313,12 +313,12 @@ const HeroSection = ({ content }: Props) => {
 
         {/* Floating Rating Card - Right Side */}
         <motion.div
-          className="hidden lg:block absolute right-12 top-1/3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
+          className="hidden xl:block absolute right-12 top-1/3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1 }}>
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-[#4a6741]/30 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-[#4a6741]/30 flex items-center justify-center shrink-0">
               <Sparkles size={22} className="text-[#a8d5a2]" />
             </div>
             <div>
@@ -339,12 +339,12 @@ const HeroSection = ({ content }: Props) => {
 
         {/* Floating Clients Card - Right Side Lower */}
         <motion.div
-          className="hidden lg:block absolute right-12 bottom-1/3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
+          className="hidden xl:block absolute right-12 bottom-1/4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}>
           <div className="flex items-center gap-3">
-            <div className="flex -space-x-2">
+            <div className="flex -space-x-2 shrink-0">
               {['😊', '😌', '🧖'].map((emoji, i) => (
                 <div
                   key={i}
@@ -365,7 +365,7 @@ const HeroSection = ({ content }: Props) => {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.5 }}>
